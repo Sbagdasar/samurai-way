@@ -1,13 +1,17 @@
 
 .nav {
     grid-area: n;
-    background-color: greenyellow;
+    background-color: lightgreen;
+    padding: 20px;
 }
 
-.item {
+.dialog a{
     color: #fff;
+    text-decoration: none;
 }
-
-.item.active {
+.dialog a.active{
+    color: gold;
+}
+.dialog.active {
     color:gold;
 }

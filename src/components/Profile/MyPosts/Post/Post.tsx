@@ -15,7 +15,6 @@ export const Post: React.FC<PostPropsType> = (props) => {
             <div>
                 <span>like - {props.likeCounts}</span>
             </div>
-
         </div>
     );
 };
