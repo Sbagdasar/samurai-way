@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState, MouseEvent} from 'react';
 import s from './Music.module.css'
 export const Music = () => {
     const [counter, setCounter] = useState<number>(0)
-    const onclockHandler = () => {
+    const onclockHandler = (e:MouseEvent<HTMLButtonElement>) => {
         if (counter < 10) {
             setCounter(counter + 1)
         }

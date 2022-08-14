@@ -5,7 +5,8 @@ export const ProfileInfo = () => {
     return (
         <div>
             <div>
-                <img className={s.content_img} src="https://cdn.wallpapersafari.com/61/41/c6lhFM.jpg" alt=""/>
+                <img className={s.content_img}
+                     src="https://socialprint.com/wp-content/uploads/banner.policies.1920x500.png" alt=""/>
             </div>
             <div className={s.descriptionBlock}>
                 ava + description
