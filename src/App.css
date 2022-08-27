@@ -41,16 +41,21 @@
 
 .app-wrapper {
     display: grid;
+    height: 100%;
     width: 1200px;
     margin: 0 auto;
     grid-template-areas:"h h"
     'n c';
-    grid-template-rows: 60px 1fr;
+    grid-template-rows: 100px 1fr;
     grid-template-columns: 2fr 10fr;
-    /*grid-gap: 10px;*/
+    grid-gap: 8px;
 }
 .app-wrapper-content{
     grid-area: c;
+    height: 100%;
     background-color: skyblue;
 }
-
+.navSidebar {
+    grid-area: n;
+    background-color: #e8e8e8;
+}

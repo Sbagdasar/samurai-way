@@ -1,0 +1,14 @@
+.sidebarContainer{
+    margin: 20px;
+}
+.sectionFriends{
+    display: flex;
+    justify-content: space-between;
+}
+.itemFriend img{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 0;
+    background-color: #ccc;
+}
