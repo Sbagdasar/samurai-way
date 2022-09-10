@@ -8,26 +8,33 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {addPost, RootStateType} from "./redux/state";
+import {RootStateType, StoreType} from "./redux/state";
 import {Sidebar} from "./components/Sidebar/Sidebar";
 
 type AppPropsType = {
-    state:RootStateType
+    store:StoreType
 }
 
 const App = (props: AppPropsType) => {
+    const  state = props.store.getState()
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
                 <Header/>
                 <div className={'navSidebar'}>
                     <Navbar/>
-                    <Sidebar friends={props.state.sidebar.friends}/>
+                    <Sidebar friends={state.sidebar.friends}/>
                 </div>
 
                 <div className={'app-wrapper-content'}>
-                    <Route path={'/dialogs'} render={()=><Dialogs messages={props.state.dialogsPage.messages} dialogs={props.state.dialogsPage.dialogs}/>}/>
-                    <Route path={'/profile'} render={()=><Profile posts={props.state.profilePage.posts} addPost={addPost}/>}/>
+                    <Route path={'/dialogs'} render={()=><Dialogs messages={state.dialogsPage.messages}
+                                                                  dialogs={state.dialogsPage.dialogs}/>}/>
+                    <Route path={'/profile'} render={()=><Profile
+                        profilePage={state.profilePage}
+                        dispatch={props.store.dispatch.bind(props.store)}
+                        //addPost={props.store.addPost.bind(props.store)}
+                        //updateNewPostText={props.store.updateNewPostText.bind(props.store)}
+                        />}/>
                     <Route path={'/news'} render={()=><News/>}/>
                     <Route path={'/music'} render={()=><Music/>}/>
                     <Route path={'/settings'} render={()=><Settings/>}/>
