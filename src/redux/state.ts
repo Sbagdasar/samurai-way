@@ -17,7 +17,8 @@ export type ProfilePageType = {
 }
 export type DialogsPageType = {
     dialogs: Array<DialogType>,
-    messages: Array<MessageType>
+    messages: Array<MessageType>,
+    newMessageText:string
 }
 export type FriendItemType = {
     id: number,
@@ -34,18 +35,21 @@ export type RootStateType = {
 }
 
 type AddPostActionType = {
-    type: 'ADD-POST',
-    newPostText: string
+    type: 'ADD-POST'
 }
 type UpdateNewPostTextActionType = {
     type: "UPDATE-NEW-POST-TEXT"
     newPostText: string
 }
-export type ActionsType = AddPostActionType | UpdateNewPostTextActionType
+type AddNewMessageActionType = {
+    type: "ADD-NEW-MESSAGE",
+    message: string
+}
+export type ActionsType = AddPostActionType | UpdateNewPostTextActionType | AddNewMessageActionType
 
 export type StoreType = {
     _state: RootStateType
-    _callSubscriber: (state: RootStateType) => void
+    _callSubscriber: () => void
     addPost: () => void
     updateNewPostText: (text: string) => void
     subscribe: (observer: () => void) => void
@@ -74,10 +78,11 @@ const store: StoreType = {
             ],
             messages: [
                 {id: 1, message: 'Hi'},
-                {id: 1, message: 'How is'},
-                {id: 1, message: 'Yo'},
-                {id: 1, message: 'Jyt'}
-            ]
+                {id: 2, message: 'How is'},
+                {id: 3, message: 'Yo'},
+                {id: 4, message: 'Jyt'}
+            ],
+            newMessageText:''
         },
         sidebar: {
             friends: [
@@ -91,15 +96,15 @@ const store: StoreType = {
     },
 
     addPost() {
-        debugger
         let newPost: PostType = {id: 4, message: this._state.profilePage.newPostText, likeCounts: 0}
         this._state.profilePage.posts.push(newPost)
         this._state.profilePage.newPostText = ''
-        this._callSubscriber(this._state)
+
+        //this._callSubscriber(this._state)
     },
     updateNewPostText(text: string) {
         this._state.profilePage.newPostText = text
-        this._callSubscriber(this._state)
+       // this._callSubscriber(this._state)
 
     },
 
@@ -108,6 +113,7 @@ const store: StoreType = {
             case "ADD-POST":
 // this.addPost()
                 //let newPost:PostType = {id:new Date().getTime(), message: action.newPostText, likeCounts: 0}
+                debugger
                 let newPost: PostType = {
                     id: new Date().getTime(),
                     message: this._state.profilePage.newPostText,
@@ -115,12 +121,18 @@ const store: StoreType = {
                 }
                 this._state.profilePage.posts.push(newPost)
                 this._state.profilePage.newPostText = ''
-                this._callSubscriber(this._state)
+                this._callSubscriber()
                 break;
             case "UPDATE-NEW-POST-TEXT":
-                debugger
+
                 this._state.profilePage.newPostText = action.newPostText
-                this._callSubscriber(this._state)
+                this._callSubscriber()
+                break
+            case "ADD-NEW-MESSAGE":
+                let newMessage:MessageType={id: new Date().getTime(), message:this._state.dialogsPage.newMessageText}
+                this._state.dialogsPage.newMessageText=''
+                this._state.dialogsPage.messages.push(newMessage)
+                this._callSubscriber()
                 break
             default:
                 throw Error('Error')
@@ -134,5 +146,15 @@ const store: StoreType = {
         return this._state
     }
 }
-console.log(store)
+
+export const addPostActionCreator = (): AddPostActionType => ({type: "ADD-POST"})
+export const updateNewPostTextAC = (text: string): UpdateNewPostTextActionType => ({
+    type: "UPDATE-NEW-POST-TEXT",
+    newPostText: text
+})
+export const addNewMessageAC = (message: string): AddNewMessageActionType => ({
+    type: "ADD-NEW-MESSAGE",
+    message: message
+})
+
 export default store;

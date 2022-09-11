@@ -10,8 +10,8 @@ type DialogsPropsType = {
 }
 export const Dialogs = (props: DialogsPropsType) => {
 
-    let dialogsElements = props.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
-    let messagesElements = props.messages.map(m => <Message message={m.message}/>)
+    let dialogsElements = props.dialogs.map(d => <DialogItem key={d.id} name={d.name} id={d.id}/>)
+    let messagesElements = props.messages.map(m => <Message key={m.id} message={m.message}/>)
     let newMessageRef = React.createRef<HTMLTextAreaElement>()
     const addMessage=()=> {
         console.log(newMessageRef.current?.value)
