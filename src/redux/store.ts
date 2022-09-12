@@ -1,3 +1,8 @@
+import profileReducer from "./reducers/profile-reducer";
+import dialogsReducer from "./reducers/dialogs-reducer";
+import sidebarReducer from "./reducers/sidebar-reducer";
+import exp from "constants";
+
 export type PostType = {
     id: number
     message: string
@@ -41,11 +46,11 @@ type UpdateNewPostTextActionType = {
     type: "UPDATE-NEW-POST-TEXT"
     newPostText: string
 }
-type UpdateNewMessageTextActionType = {
+export type UpdateNewMessageTextActionType = {
     type: "UPDATE-NEW-MESSAGE"
     message: string
 }
-type AddNewMessageActionType = {
+export type AddNewMessageActionType = {
     type: "ADD-NEW-MESSAGE",
 }
 export type ActionsType =
@@ -57,8 +62,8 @@ export type ActionsType =
 export type StoreType = {
     _state: RootStateType
     _callSubscriber: () => void
-    addPost: () => void
-    updateNewPostText: (text: string) => void
+    // addPost: () => void
+    // updateNewPostText: (text: string) => void
     subscribe: (observer: () => void) => void
     getState: () => RootStateType
     dispatch: (action: ActionsType) => void
@@ -102,7 +107,7 @@ const store: StoreType = {
         console.log('changed state')
     },
 
-    addPost() {
+    /*addPost() {
         let newPost: PostType = {id: 4, message: this._state.profilePage.newPostText, likeCounts: 0}
         this._state.profilePage.posts.push(newPost)
         this._state.profilePage.newPostText = ''
@@ -113,45 +118,13 @@ const store: StoreType = {
         this._state.profilePage.newPostText = text
         // this._callSubscriber(this._state)
 
-    },
+    },*/
 
     dispatch(action: ActionsType) {
-        switch (action.type) {
-            case "ADD-POST":
-// this.addPost()
-                //let newPost:PostType = {id:new Date().getTime(), message: action.newPostText, likeCounts: 0}
-                debugger
-                let newPost: PostType = {
-                    id: new Date().getTime(),
-                    message: this._state.profilePage.newPostText,
-                    likeCounts: 0
-                }
-                this._state.profilePage.posts.push(newPost)
-                this._state.profilePage.newPostText = ''
-                this._callSubscriber()
-                break;
-            case "UPDATE-NEW-POST-TEXT":
-
-                this._state.profilePage.newPostText = action.newPostText
-                this._callSubscriber()
-                break
-            case "ADD-NEW-MESSAGE":
-                let newMessage: MessageType = {
-                    id: new Date().getTime(),
-                    message: this._state.dialogsPage.newMessageText
-                }
-                this._state.dialogsPage.messages.push(newMessage)
-                this._state.dialogsPage.newMessageText = ''
-                console.log(this._state.dialogsPage.newMessageText)
-                this._callSubscriber()
-                break
-            case "UPDATE-NEW-MESSAGE":
-                this._state.dialogsPage.newMessageText = action.message
-                this._callSubscriber()
-                break
-            default:
-                throw Error('Error')
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action)
+        this._callSubscriber()
     },
 
     subscribe(observer) {
@@ -162,17 +135,5 @@ const store: StoreType = {
     }
 }
 
-export const addPostActionCreator = (): AddPostActionType => ({type: "ADD-POST"})
-export const updateNewPostTextAC = (text: string): UpdateNewPostTextActionType => ({
-    type: "UPDATE-NEW-POST-TEXT",
-    newPostText: text
-})
-export const addNewMessageAC = (): AddNewMessageActionType => ({
-    type: "ADD-NEW-MESSAGE",
-})
-export const updateNewMessageTextAC = (message: string): UpdateNewMessageTextActionType => ({
-    type: "UPDATE-NEW-MESSAGE",
-    message: message
-})
 
 export default store;
