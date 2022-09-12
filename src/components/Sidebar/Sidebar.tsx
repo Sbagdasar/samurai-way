@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './Sidebar.module.css'
-import {FriendItemType} from "../../redux/state";
+import {FriendItemType} from "../../redux/store";
 type SidebarPropsType ={
     friends:Array<FriendItemType>
 }

@@ -1,7 +1,7 @@
 import React, {LegacyRef} from 'react';
 import s from "./MyPosts.module.css"
 import {Post} from "./Post/Post";
-import {ActionsType, addPostActionCreator, PostType, updateNewPostTextAC} from "../../../redux/state";
+import {ActionsType, addPostActionCreator, PostType, updateNewPostTextAC} from "../../../redux/store";
 
 
 type MyPostsPropsType = {

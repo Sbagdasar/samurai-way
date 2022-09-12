@@ -18,7 +18,7 @@ export type ProfilePageType = {
 export type DialogsPageType = {
     dialogs: Array<DialogType>,
     messages: Array<MessageType>,
-    newMessageText:string
+    newMessageText: string
 }
 export type FriendItemType = {
     id: number,
@@ -41,11 +41,18 @@ type UpdateNewPostTextActionType = {
     type: "UPDATE-NEW-POST-TEXT"
     newPostText: string
 }
-type AddNewMessageActionType = {
-    type: "ADD-NEW-MESSAGE",
+type UpdateNewMessageTextActionType = {
+    type: "UPDATE-NEW-MESSAGE"
     message: string
 }
-export type ActionsType = AddPostActionType | UpdateNewPostTextActionType | AddNewMessageActionType
+type AddNewMessageActionType = {
+    type: "ADD-NEW-MESSAGE",
+}
+export type ActionsType =
+    AddPostActionType
+    | UpdateNewPostTextActionType
+    | AddNewMessageActionType
+    | UpdateNewMessageTextActionType
 
 export type StoreType = {
     _state: RootStateType
@@ -82,7 +89,7 @@ const store: StoreType = {
                 {id: 3, message: 'Yo'},
                 {id: 4, message: 'Jyt'}
             ],
-            newMessageText:''
+            newMessageText: ''
         },
         sidebar: {
             friends: [
@@ -104,7 +111,7 @@ const store: StoreType = {
     },
     updateNewPostText(text: string) {
         this._state.profilePage.newPostText = text
-       // this._callSubscriber(this._state)
+        // this._callSubscriber(this._state)
 
     },
 
@@ -129,9 +136,17 @@ const store: StoreType = {
                 this._callSubscriber()
                 break
             case "ADD-NEW-MESSAGE":
-                let newMessage:MessageType={id: new Date().getTime(), message:this._state.dialogsPage.newMessageText}
-                this._state.dialogsPage.newMessageText=''
+                let newMessage: MessageType = {
+                    id: new Date().getTime(),
+                    message: this._state.dialogsPage.newMessageText
+                }
                 this._state.dialogsPage.messages.push(newMessage)
+                this._state.dialogsPage.newMessageText = ''
+                console.log(this._state.dialogsPage.newMessageText)
+                this._callSubscriber()
+                break
+            case "UPDATE-NEW-MESSAGE":
+                this._state.dialogsPage.newMessageText = action.message
                 this._callSubscriber()
                 break
             default:
@@ -152,8 +167,11 @@ export const updateNewPostTextAC = (text: string): UpdateNewPostTextActionType =
     type: "UPDATE-NEW-POST-TEXT",
     newPostText: text
 })
-export const addNewMessageAC = (message: string): AddNewMessageActionType => ({
+export const addNewMessageAC = (): AddNewMessageActionType => ({
     type: "ADD-NEW-MESSAGE",
+})
+export const updateNewMessageTextAC = (message: string): UpdateNewMessageTextActionType => ({
+    type: "UPDATE-NEW-MESSAGE",
     message: message
 })
 
