@@ -1,8 +1,8 @@
 import React from 'react';
 import './index.css';
-import store, {RootStateType} from "./redux/store";
 import ReactDOM from "react-dom";
 import App from "./App";
+import {store} from "./redux/redux-store";
 
 
 export const renderEntireTree = () => {

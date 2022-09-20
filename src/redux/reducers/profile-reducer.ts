@@ -9,7 +9,15 @@ type UpdateNewPostTextActionType = {
     newPostText: string
 }
 
-const profileReducer=(state:ProfilePageType, action:ActionsType)=>{
+let initialState = {
+    posts: [
+        {id: 1, message: "Hi, ow are you", likeCounts: 15},
+        {id: 2, message: "Its my first post", likeCounts: 25},
+        {id: 3, message: "Its my first post2", likeCounts: 5},
+    ],
+    newPostText: ''
+}
+const profileReducer=(state:ProfilePageType =initialState, action:ActionsType)=>{
     switch (action.type) {
         case "ADD-POST":
 

@@ -8,15 +8,15 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {StoreType} from "./redux/store";
 import {Sidebar} from "./components/Sidebar/Sidebar";
+import {RootTypeReduxState, RootTypeStore} from "./redux/redux-store";
 
 type AppPropsType = {
-    store:StoreType
+    store:RootTypeStore
 }
 
 const App = (props: AppPropsType) => {
-    const  state = props.store.getState()
+    const  state:RootTypeReduxState = props.store.getState()
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
