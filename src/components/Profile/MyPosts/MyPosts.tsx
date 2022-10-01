@@ -7,10 +7,10 @@ import {addPostActionCreator, updateNewPostTextAC} from "../../../redux/reducers
 
 type MyPostsPropsType = {
     posts: Array<PostType>
-    //addPost: () => void
-    dispatch:(action:ActionsType)=>void
+    addPost: () => void
+    //dispatch:(action:ActionsType)=>void
     newPostText: string
-    //updateNewPostText:(text:string)=>void
+    updateNewPostText:(text:string)=>void
 }
 
 export const MyPosts = (props: MyPostsPropsType) => {
@@ -19,15 +19,14 @@ export const MyPosts = (props: MyPostsPropsType) => {
 
     let newPostElement = React.createRef<HTMLTextAreaElement>()
     const addPost = () => {
-            //props.addPost()
-        props.dispatch(addPostActionCreator())
+        props.addPost()
     }
     const onChangeHandler = () => {
 
         if(newPostElement.current){
             let text = newPostElement.current.value
-            //props.updateNewPostText(text)
-            props.dispatch(updateNewPostTextAC(text))
+            props.updateNewPostText(text)
+            //props.dispatch(updateNewPostTextAC(text))
         }
 
     }

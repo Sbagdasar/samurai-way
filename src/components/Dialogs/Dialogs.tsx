@@ -12,7 +12,9 @@ import {addNewMessageAC, updateNewMessageTextAC} from "../../redux/reducers/dial
 
 type DialogsPropsType = {
     dialogsPage:DialogsPageType
-    dispatch:(action:ActionsType)=>void
+    //dispatch:(action:ActionsType)=>void
+    addMessage:()=>void
+    updateNewMessage:(message:string)=>void
 }
 export const Dialogs = (props: DialogsPropsType) => {
 
@@ -20,11 +22,11 @@ export const Dialogs = (props: DialogsPropsType) => {
     let messagesElements = props.dialogsPage.messages.map(m => <Message key={m.id} message={m.message}/>)
     let newMessageRef = React.createRef<HTMLTextAreaElement>()
     const addMessage=()=> {
-        props.dispatch(addNewMessageAC())
+        props.addMessage()
     }
     const onChangeMessageHandler=(e:ChangeEvent<HTMLTextAreaElement>)=>{
         let message = e.currentTarget.value
-        props.dispatch(updateNewMessageTextAC(message))
+        props.updateNewMessage(message)
     }
     return (
         <>

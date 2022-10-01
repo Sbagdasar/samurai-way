@@ -10,6 +10,7 @@ import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {Sidebar} from "./components/Sidebar/Sidebar";
 import {RootTypeReduxState, RootTypeStore} from "./redux/redux-store";
+import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 type AppPropsType = {
     store:RootTypeStore
@@ -27,11 +28,8 @@ const App = (props: AppPropsType) => {
                 </div>
 
                 <div className={'app-wrapper-content'}>
-                    <Route path={'/dialogs'} render={()=><Dialogs dialogsPage={state.dialogsPage}
-                                                                  dispatch={props.store.dispatch.bind(props.store)}/>}/>
-                    <Route path={'/profile'} render={()=><Profile
-                        profilePage={state.profilePage}
-                        dispatch={props.store.dispatch.bind(props.store)}
+                    <Route path={'/dialogs'} render={()=><DialogsContainer store={props.store}/>}/>
+                    <Route path={'/profile'} render={()=><Profile store={props.store}
                         //addPost={props.store.addPost.bind(props.store)}
                         //updateNewPostText={props.store.updateNewPostText.bind(props.store)}
                         />}/>
