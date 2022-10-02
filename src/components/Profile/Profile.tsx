@@ -8,7 +8,7 @@ import {RootTypeStore} from "../../redux/redux-store";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 
 type ProfilePropsType ={
-    store:RootTypeStore
+    //store:RootTypeStore
    // profilePage: ProfilePageType
     //addPost:()=>void
     //dispatch:(action:ActionsType)=>void
@@ -20,8 +20,7 @@ export const Profile = (props:ProfilePropsType) => {
     return (
         <div>
             <ProfileInfo/>
-            <MyPostsContainer store={props.store}
-            />
+            <MyPostsContainer/>
         </div>
     );
 };

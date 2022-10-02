@@ -11,23 +11,34 @@ import {
 import {addNewMessageAC, updateNewMessageTextAC} from "../../redux/reducers/dialogs-reducer";
 import {RootTypeStore} from "../../redux/redux-store";
 import {Dialogs} from "./Dialogs";
+import { StoreContext } from '../../StoreContext';
 
 type DialogsPropsType = {
-   store:RootTypeStore
+   //store:RootTypeStore
 }
 export const DialogsContainer = (props: DialogsPropsType) => {
-let state = props.store.getState()
 
-    const addMessage=()=> {
-        props.store.dispatch(addNewMessageAC())
-    }
-    const onChangeMessageHandler=(message: string)=>{
-
-        props.store.dispatch(updateNewMessageTextAC(message))
-    }
     return (
         <>
-            <Dialogs dialogsPage={state.dialogsPage} addMessage={addMessage} updateNewMessage={onChangeMessageHandler}/>
+            <StoreContext.Consumer>
+                {
+                    (store)=>{
+                        let state = store.getState()
+
+                        const addMessage=()=> {
+                            store.dispatch(addNewMessageAC())
+                        }
+                        const onChangeMessageHandler=(message: string)=>{
+
+                            store.dispatch(updateNewMessageTextAC(message))
+                        }
+                        return(
+                        <Dialogs dialogsPage={state.dialogsPage} addMessage={addMessage} updateNewMessage={onChangeMessageHandler}/>
+                    )}
+                }
+
+            </StoreContext.Consumer>
+
         </>
 
     );
