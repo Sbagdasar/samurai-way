@@ -1,4 +1,3 @@
-import {ActionsType, SideBarType} from "../store";
 
 let initialState = {
     friends: [
@@ -6,7 +5,10 @@ let initialState = {
         {id: 2, name: 'Eric', img: '/img/eric.jpg'}
     ]
 }
-const sidebarReducer=(state:SideBarType=initialState, action:ActionsType)=>{
+export type  InitialStateType = typeof initialState
+
+
+const sidebarReducer=(state:InitialStateType=initialState, action:any):InitialStateType=>{
     switch (action.type) {
 
         default:

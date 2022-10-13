@@ -11,6 +11,7 @@ import {Sidebar} from "./components/Sidebar/Sidebar";
 import {RootTypeReduxState, RootTypeStore} from "./redux/redux-store";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import store from "./redux/store";
+import {Users} from "./components/Users";
 
 type AppPropsType = {
    // store: RootTypeStore
@@ -29,6 +30,7 @@ const App = (props: AppPropsType) => {
                 <div className={'app-wrapper-content'}>
                     <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
                     <Route path={'/profile'} render={() => <Profile/>}/>
+                    <Route path={'/users'} render={() => <Users/>}/>
                     <Route path={'/news'} render={() => <News/>}/>
                     <Route path={'/music'} render={() => <Music/>}/>
                     <Route path={'/settings'} render={() => <Settings/>}/>

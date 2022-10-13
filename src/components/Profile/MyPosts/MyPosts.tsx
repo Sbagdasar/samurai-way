@@ -1,10 +1,12 @@
-import React, {LegacyRef} from 'react';
+import React from 'react';
 import s from "./MyPosts.module.css"
 import {Post} from "./Post/Post";
-import {ActionsType, PostType} from "../../../redux/store";
-import {addPostActionCreator, updateNewPostTextAC} from "../../../redux/reducers/profile-reducer";
 
-
+export type PostType = {
+    id: number
+    message: string
+    likeCounts: number
+}
 type MyPostsPropsType = {
     posts: Array<PostType>
     addPost: () => void
