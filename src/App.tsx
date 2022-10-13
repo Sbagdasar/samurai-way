@@ -12,25 +12,26 @@ import {RootTypeReduxState} from "./redux/redux-store";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import store from "./redux/store";
 import {Users} from "./components/Users/Users";
+import {UsersContainer} from "./components/Users/UsersContainer";
 
 type AppPropsType = {
    // store: RootTypeStore
 }
 
 const App = (props: AppPropsType) => {
-   const state: RootTypeReduxState = store.getState()
+  // const state: RootTypeReduxState = store.getState()
     return (
             <div className='app-wrapper'>
                 <Header/>
                 <div className={'navSidebar'}>
                     <Navbar/>
-                    <Sidebar friends={state.sidebar.friends}/>
+                    {/*<Sidebar friends={state.sidebar.friends}/>*/}
                 </div>
 
                 <div className={'app-wrapper-content'}>
                     <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
                     <Route path={'/profile'} render={() => <Profile/>}/>
-                    <Route path={'/users'} render={() => <Users/>}/>
+                    <Route path={'/users'} render={() => <UsersContainer/>}/>
                     <Route path={'/news'} render={() => <News/>}/>
                     <Route path={'/music'} render={() => <Music/>}/>
                     <Route path={'/settings'} render={() => <Settings/>}/>

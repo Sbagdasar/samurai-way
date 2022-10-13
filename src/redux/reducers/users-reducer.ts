@@ -1,6 +1,6 @@
 let initialState = {
     users: [
-        {
+        /*{
             id: 1,
             followed: false,
             fullName: "Samvel",
@@ -20,13 +20,15 @@ let initialState = {
             fullName: "Eva",
             status: "i am cool girl too",
             location: {country: "Belarus", city: "Minsk"}
-        }
+        }*/
     ]
 }
 
-export type InitialStateType = typeof initialState
+export type InitialStateType = {
+    users:Array<UserType>
+}
 
-type UserType = {
+export type UserType = {
     id: number,
     followed: boolean,
     fullName: string,
@@ -79,13 +81,13 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
     }
 }
 
-const followAC = (userID: number): FollowACType => ({
+export const followAC = (userID: number): FollowACType => ({
     type: "FOLLOW", userID
 })
-const unFollowAC = (userID: number) => ({
+export const unFollowAC = (userID: number) => ({
     type: "UNFOLLOW", userID
 })
-const setUsersAC = (users: Array<UserType>): SetUsersACType => ({
+export const setUsersAC = (users: Array<UserType>): SetUsersACType => ({
     type: "SET-USERS",
     users
 })
