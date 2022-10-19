@@ -1,0 +1,21 @@
+.usersContainer{
+    margin: 20px 0 20px 20px;
+}
+.userItemContainer{
+    width: 100%;
+    display: flex;
+
+}
+.userInfo{
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+}
+.avatarBlock{
+    width: 20%;
+}
+.avatarBlock img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}

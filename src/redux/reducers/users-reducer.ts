@@ -1,46 +1,25 @@
 let initialState = {
-    users: [
-        /*{
-            id: 1,
-            followed: false,
-            fullName: "Samvel",
-            status: "i am cool boy",
-            location: {country: "Belarus", city: "Minsk"}
-        },
-        {
-            id: 2,
-            followed: true,
-            fullName: "Chesya",
-            status: "i am cool girl",
-            location: {country: "Belarus", city: "Minsk"}
-        },
-        {
-            id: 3,
-            followed: false,
-            fullName: "Eva",
-            status: "i am cool girl too",
-            location: {country: "Belarus", city: "Minsk"}
-        }*/
-    ]
+    users: []
 }
 
 export type InitialStateType = {
-    users:Array<UserType>
+    users: Array<UserType>
 }
 
 export type UserType = {
     id: number,
+    photoUrl: string,
     followed: boolean,
-    fullName: string,
+    name: string,
     status: string,
-    location: LocationType
+    //location: LocationType
 
 }
-type LocationType = {
-    country: string,
-    city: string
-
-}
+// type LocationType = {
+//     country: string,
+//     city: string
+//
+// }
 type FollowACType = {
     type: "FOLLOW",
     userID: number
@@ -58,22 +37,21 @@ type ActionsType = FollowACType | UnFollowACType | SetUsersACType
 export const usersReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case "FOLLOW": {
-
             return {
                 ...state,
                 users: state.users.map(user => user.id === action.userID ? {...user, followed: true} : user)
             }
         }
         case "UNFOLLOW": {
-
             return {
                 ...state,
                 users: state.users.map(user => user.id === action.userID ? {...user, followed: false} : user)
             }
 
         }
-        case "SET-USERS":{
-            return {...state, users: [...state.users, ...action.users]
+        case "SET-USERS": {
+            return {
+                ...state, users: [...state.users, ...action.users]
             }
         }
         default:
