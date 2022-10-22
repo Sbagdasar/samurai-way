@@ -2,25 +2,31 @@ import React from 'react';
 import s from './Users.module.css'
 import {UsersPropsType} from "./UsersContainer";
 import axios from "axios";
-
+import defaultUser from '../../assets/images/usersPage/defaultUser.jpeg'
 
 export const Users = (props: UsersPropsType) => {
-    if (props.users.length === 0) {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response=>{
+    let  getUsers=()=>{
+        if (props.users.length === 0) {
+            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+                props.setUsers(response.data.items)
+            })
 
-            props.setUsers(response.data.items)
-        })
-
+        }
     }
+
     return (
         <div>
+            <button onClick={getUsers}>Get Users</button>
             {props.users.map(user => {
                 return (
                     <div key={user.id} className={s.usersContainer}>
                         <div className={s.userItemContainer}>
                             <div className={s.avatarBlock}>
                                 <div>
-                                    <img src={'https://i.pinimg.com/736x/8b/ad/1c/8bad1c65a635acb1ef99faf112dde46f.jpg'} alt=""/>
+                                    <img
+                                        src={user.photos.small?user.photos.small:defaultUser}
+                                        alt=""/>
+
                                 </div>
                                 <div>
                                     {user.followed ?

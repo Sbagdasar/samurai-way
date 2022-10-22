@@ -8,7 +8,7 @@ export type InitialStateType = {
 
 export type UserType = {
     id: number,
-    photoUrl: string,
+    photos: UserPhotosType,
     followed: boolean,
     name: string,
     status: string,
@@ -20,6 +20,10 @@ export type UserType = {
 //     city: string
 //
 // }
+type UserPhotosType = {
+    small: string,
+    large: string
+}
 type FollowACType = {
     type: "FOLLOW",
     userID: number
