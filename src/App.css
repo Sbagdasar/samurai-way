@@ -53,7 +53,7 @@
 .app-wrapper-content{
     grid-area: c;
     height: 100%;
-    background-color: skyblue;
+    background-color: #c8dcec;
 }
 .navSidebar {
     grid-area: n;
