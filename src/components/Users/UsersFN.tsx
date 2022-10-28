@@ -5,7 +5,7 @@ import axios from "axios";
 import defaultUser from '../../assets/images/usersPage/defaultUser.jpeg'
 
 export const UsersFN = (props: UsersPropsType) => {
-    let  getUsers=()=>{
+    /*let getUsers = () => {
         if (props.users.length === 0) {
             axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
                 props.setUsers(response.data.items)
@@ -24,13 +24,13 @@ export const UsersFN = (props: UsersPropsType) => {
                             <div className={s.avatarBlock}>
                                 <div>
                                     <img
-                                        src={user.photos.small?user.photos.small:defaultUser}
+                                        src={user.photos.small ? user.photos.small : defaultUser}
                                         alt=""/>
 
                                 </div>
                                 <div>
                                     {user.followed ?
-                                        <button onClick={() => props.unfollow(user.id)}>Unfollow</button> :
+                                        <button onClick={() => props.unFollow(user.id)}>Unfollow</button> :
                                         <button onClick={() => props.follow(user.id)}>Follow</button>
                                     }
                                 </div>
@@ -50,5 +50,5 @@ export const UsersFN = (props: UsersPropsType) => {
                 )
             })}
         </div>
-    );
+    );*/
 };

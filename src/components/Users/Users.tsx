@@ -2,12 +2,13 @@ import React from 'react';
 import s from "./Users.module.css";
 import defaultUser from "../../assets/images/usersPage/defaultUser.jpeg";
 import {UserType} from "../../redux/reducers/users-reducer";
+import {NavLink} from "react-router-dom";
 type UsersPropsType={
     totalUsersCount:number
     pageSize:number
     currentPage:number
     users:Array<UserType>
-    unfollow:(userID: number) =>void
+    unFollow:(userID: number) =>void
     follow:(userID: number) =>void
     getCurrentPageUsers:(page:number)=>void
 }
@@ -37,14 +38,18 @@ export const Users = (props:UsersPropsType) => {
                         <div className={s.userItemContainer}>
                             <div className={s.avatarBlock}>
                                 <div>
-                                    <img
-                                        src={user.photos.small ? user.photos.small : defaultUser}
-                                        alt=""/>
+                                    <NavLink to={'/profile/' + user.id}>
+                                        <img
+                                            src={user.photos.small ? user.photos.small : defaultUser}
+                                            alt=""/>
+                                    </NavLink>
+
+
 
                                 </div>
                                 <div>
                                     {user.followed ?
-                                        <button onClick={() => props.unfollow(user.id)}>Unfollow</button> :
+                                        <button onClick={() => props.unFollow(user.id)}>Unfollow</button> :
                                         <button onClick={() => props.follow(user.id)}>Follow</button>
                                     }
                                 </div>

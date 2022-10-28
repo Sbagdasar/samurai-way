@@ -1,20 +1,18 @@
 import React from 'react';
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
+import {ProfileItemPropsType} from "../../redux/reducers/profile-reducer";
 
-type ProfilePropsType ={
-    //store:RootTypeStore
-   // profilePage: ProfilePageType
-    //addPost:()=>void
-    //dispatch:(action:ActionsType)=>void
-    //updateNewPostText:(text:string)=>void
+export type ProfilePropsType ={
+    profile:ProfileItemPropsType|null
+    setUserProfile:(profile:ProfileItemPropsType)=>void
 }
 
 export const Profile = (props:ProfilePropsType) => {
 
     return (
         <div>
-            <ProfileInfo/>
+            <ProfileInfo profile={props.profile}/>
             <MyPostsContainer/>
         </div>
     );
