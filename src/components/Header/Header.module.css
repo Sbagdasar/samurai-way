@@ -7,3 +7,10 @@
     margin: 20px 20px;
     width: 100px;
 }
+.login{
+    float: right;
+}
+.login > a{
+    color: #fff;
+    text-decoration: none;
+}
