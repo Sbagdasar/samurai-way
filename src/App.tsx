@@ -8,7 +8,7 @@ import {Settings} from "./components/Settings/Settings";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
-import {HeaderContainer} from "./components/Header/HeaderContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 type AppPropsType = {
    // store: RootTypeStore
@@ -18,7 +18,7 @@ const App = (props: AppPropsType) => {
   // const state: RootTypeReduxState = store.getState()
     return (
             <div className='app-wrapper'>
-                <HeaderContainer/>
+                <HeaderContainer />
                 <div className={'navSidebar'}>
                     <Navbar/>
                     {/*<Sidebar friends={state.sidebar.friends}/>*/}

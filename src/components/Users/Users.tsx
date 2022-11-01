@@ -3,6 +3,7 @@ import s from "./Users.module.css";
 import defaultUser from "../../assets/images/usersPage/defaultUser.jpeg";
 import {UserType} from "../../redux/reducers/users-reducer";
 import {NavLink} from "react-router-dom";
+import axios from "axios";
 type UsersPropsType={
     totalUsersCount:number
     pageSize:number
@@ -17,6 +18,35 @@ export const Users = (props:UsersPropsType) => {
     let pages = Array.from({length: +pagesCount}, (_, i: number) => +i + 1)
     const onSetCurrentPage=(page:number)=>{
         props.getCurrentPageUsers(page)
+    }
+
+    const unFollowHandler = (id:number)=>{
+        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`,{
+            withCredentials:true,
+            headers:{
+                "API-KEY":"1abf02da-1f01-4a57-9e95-d7c2e3ba6948"
+            }
+        })
+            .then(response => {
+                if(response.data.resultCode===0){
+                    props.unFollow(id)
+                }
+
+            })
+    }
+    const followHandler = (id:number)=>{
+        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`,{},{
+            withCredentials:true,
+            headers:{
+                "API-KEY":"1abf02da-1f01-4a57-9e95-d7c2e3ba6948"
+            }
+        })
+            .then(response => {
+                if(response.data.resultCode===0){
+                    props.follow(id)
+                }
+
+            })
     }
     return (
         <div>
@@ -49,8 +79,8 @@ export const Users = (props:UsersPropsType) => {
                                 </div>
                                 <div>
                                     {user.followed ?
-                                        <button onClick={() => props.unFollow(user.id)}>Unfollow</button> :
-                                        <button onClick={() => props.follow(user.id)}>Follow</button>
+                                        <button onClick={() => unFollowHandler(user.id)}>Unfollow</button> :
+                                        <button onClick={() => followHandler(user.id)}>Follow</button>
                                     }
                                 </div>
                             </div>
