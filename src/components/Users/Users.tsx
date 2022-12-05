@@ -3,18 +3,16 @@ import s from "./Users.module.css";
 import defaultUser from "../../assets/images/usersPage/defaultUser.jpeg";
 import {UserType} from "../../redux/reducers/users-reducer";
 import {NavLink} from "react-router-dom";
-import {usersAPI} from "../../api/api";
 
 type UsersPropsType = {
     totalUsersCount: number
     pageSize: number
     currentPage: number
     users: Array<UserType>
-    unFollow: (userID: number) => void
-    follow: (userID: number) => void
     getCurrentPageUsers: (page: number) => void
     followingInProgress: Array<number>
-    toggleFollowingInProgress: (userId:number, following: boolean) => void
+    followTC:(id:number)=>void
+    unfollowTC:(id:number)=>void
 }
 export const Users = (props: UsersPropsType) => {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
@@ -22,24 +20,11 @@ export const Users = (props: UsersPropsType) => {
     const onSetCurrentPage = (page: number) => {
         props.getCurrentPageUsers(page)
     }
-
     const unFollowHandler = (id: number) => {
-        props.toggleFollowingInProgress(id,true)
-        usersAPI.unFollow(id).then(data => {
-            if (data.resultCode === 0) {
-                props.unFollow(id)
-            }
-            props.toggleFollowingInProgress(id,false)
-        })
+        props.unfollowTC(id)
     }
     const followHandler = (id: number) => {
-        props.toggleFollowingInProgress(id,true)
-        usersAPI.follow(id).then(data => {
-            if (data.resultCode === 0) {
-                props.follow(id)
-            }
-            props.toggleFollowingInProgress(id,false)
-        })
+        props.followTC(id)
     }
     return (
         <div>
@@ -66,8 +51,6 @@ export const Users = (props: UsersPropsType) => {
                                             src={user.photos.small ? user.photos.small : defaultUser}
                                             alt=""/>
                                     </NavLink>
-
-
                                 </div>
                                 <div>
                                     {user.followed ?

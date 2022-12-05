@@ -1,4 +1,7 @@
 //type AddPostActionType = ReturnType<typeof addPostActionCreator>
+import {Dispatch} from "redux";
+import {profileAPI} from "../../api/api";
+
 type AddPostActionType = {
     type: 'ADD-POST'
 }
@@ -78,5 +81,12 @@ export const updateNewPostTextAC = (text: string): UpdateNewPostTextActionType =
     type: "UPDATE-NEW-POST-TEXT",
     newPostText: text
 })
+ export const getProfileTC = (userId:string)=>(dispatch:Dispatch)=>{
+     profileAPI.getProfile(userId).then(data => {
+         dispatch(setUserProfile(data))
+     })
+ }
+
+
 
 export default profileReducer;

@@ -5,6 +5,7 @@ type HeaderPropsType = {
     login: string | null,
     isAuth: boolean
     profilePhoto:string|undefined
+    authMeTC:()=>void
 }
 export const Header:React.FC<HeaderPropsType> = (props) => {
     return (

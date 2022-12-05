@@ -5,7 +5,8 @@ import {ProfileItemPropsType} from "../../redux/reducers/profile-reducer";
 
 export type ProfilePropsType ={
     profile:ProfileItemPropsType|null
-    setUserProfile:(profile:ProfileItemPropsType)=>void
+    //setUserProfile:(profile:ProfileItemPropsType)=>void
+    getProfileTC:(userId:string)=>void
 }
 
 export const Profile = (props:ProfilePropsType) => {
