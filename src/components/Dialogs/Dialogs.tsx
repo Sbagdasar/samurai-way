@@ -2,6 +2,7 @@ import React, {ChangeEvent} from 'react';
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
+import {Redirect} from "react-router-dom";
 
 type DialogType = {
     id: number
@@ -21,6 +22,7 @@ type DialogsPropsType = {
     //dispatch:(action:ActionsType)=>void
     addMessage:()=>void
     updateNewMessage:(message:string)=>void
+    isAuth:boolean
 }
 export const Dialogs = (props: DialogsPropsType) => {
 
@@ -34,6 +36,7 @@ export const Dialogs = (props: DialogsPropsType) => {
         let message = e.currentTarget.value
         props.updateNewMessage(message)
     }
+    if(!props.isAuth) return <Redirect to={'/login'}/>
     return (
         <>
             <div className={s.dialogs}>
