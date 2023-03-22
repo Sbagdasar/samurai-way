@@ -2,8 +2,10 @@ import React from 'react';
 import {addNewMessageAC, updateNewMessageTextAC} from "../../redux/reducers/dialogs-reducer";
 import {Dialogs, DialogsPageType} from "./Dialogs";
 import {RootTypeReduxState} from "../../redux/redux-store";
-import {Dispatch} from "redux";
+import {compose, Dispatch} from "redux";
 import {connect} from "react-redux";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {withRouter} from "react-router-dom";
 
 
 /*export const DialogsContainer = (props: DialogsPropsType) => {
@@ -36,7 +38,6 @@ import {connect} from "react-redux";
 
 type MapStateToPropsType = {
     dialogsPage: DialogsPageType
-    isAuth:boolean
 
 }
 type MapDispatchToPropsType = {
@@ -47,7 +48,6 @@ type MapDispatchToPropsType = {
 const mapStateToProps=(state:RootTypeReduxState):MapStateToPropsType=>{
     return {
         dialogsPage: state.dialogsPage,
-        isAuth:state.auth.isAuth
     }
 }
 
@@ -59,4 +59,4 @@ const mapDispatchToProps=(dispatch: Dispatch):MapDispatchToPropsType=>{
         }
     }
 }
-export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+export default compose<React.ComponentType>(connect(mapStateToProps, mapDispatchToProps), withAuthRedirect, withRouter)(Dialogs)

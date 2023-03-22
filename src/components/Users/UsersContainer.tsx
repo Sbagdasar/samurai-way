@@ -8,6 +8,9 @@ import {
 import React from 'react';
 import {Users} from "./Users";
 import {Preloader} from "../Common/Preloader/Preloader";
+import {compose} from "redux";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {withRouter} from "react-router-dom";
 
 type MapStateToPropsType = {
     users: Array<UserType>
@@ -108,4 +111,4 @@ let mapDispatchLikeObject: MapDispatchToPropsType = {
     unfollowTC
 }
 //export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
-export default connect(mapStateToProps, mapDispatchLikeObject)(UsersContainer)
+export default compose<React.ComponentType>(connect(mapStateToProps, mapDispatchLikeObject), withAuthRedirect, withRouter)(UsersContainer)
