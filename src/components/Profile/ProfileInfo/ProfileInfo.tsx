@@ -5,6 +5,8 @@ import {Preloader} from "../../Common/Preloader/Preloader";
 import {ProfileStatus} from "../ProfileStatus/ProfileStatus";
 type ProfileInfoPropsType={
     profile:ProfileItemPropsType|null
+    status:string
+    updateStatusTC:(status:string)=>void
 }
 export const ProfileInfo = (props:ProfileInfoPropsType) => {
 
@@ -21,7 +23,7 @@ export const ProfileInfo = (props:ProfileInfoPropsType) => {
                     <div>
                         <img src={props.profile.photos.small} alt={'props.profile.photos.small'}/>
                     </div>
-                    <ProfileStatus status={'my status'}/>
+                    <ProfileStatus status={props.status} updateStatusTC={props.updateStatusTC}/>
                     <div>
                         <p>{props.profile.aboutMe}</p>
                         <p>{props.profile.fullName}</p>

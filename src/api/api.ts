@@ -28,5 +28,11 @@ export const profileAPI ={
     },
     getAuth () {
         return instance.get('auth/me', {withCredentials: true}).then(response => response.data)
+    },
+    getStatus (userId:string){
+        return instance.get(`profile/status/${userId}`).then(res=> res.data)
+    },
+    updateStatus (status: string){
+        return instance.put(`/profile/status`, {status}).then(response=>response.data)
     }
 }

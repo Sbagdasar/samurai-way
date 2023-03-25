@@ -1,26 +1,31 @@
 import React, {ChangeEvent} from 'react';
 
-type MapStateToPropsType ={
+type ProfileStatusPropsType ={
   status: string
+  updateStatusTC:(status:string)=>void
+
 }
-export class ProfileStatus extends React.Component<MapStateToPropsType> {
+
+export class ProfileStatus extends React.Component<ProfileStatusPropsType> {
   state = {
     isEditMode:false,
-    value: this.props.status
+    status: this.props.status
   }
   activateEditMode(){
     this.setState({
       isEditMode:true
     })
   }
-  disableActiveMode(){
+  disableActiveMode=()=>{
+
+    this.props.updateStatusTC(this.state.status)
     this.setState({
       isEditMode:false
     })
   }
   changeStatusValue(e: ChangeEvent<HTMLInputElement>){
     this.setState({
-      value: e.currentTarget.value
+      status: e.currentTarget.value
     })
   }
   render() {
@@ -35,7 +40,7 @@ export class ProfileStatus extends React.Component<MapStateToPropsType> {
         {
           this.state.isEditMode &&
             <div>
-                <input type="text" autoFocus onChange={this.changeStatusValue.bind(this)} value={this.props.status} onBlur={this.disableActiveMode.bind(this)}/>
+                <input type="text" autoFocus onChange={this.changeStatusValue.bind(this)} value={this.state.status} onBlur={this.disableActiveMode}/>
             </div>
         }
 
