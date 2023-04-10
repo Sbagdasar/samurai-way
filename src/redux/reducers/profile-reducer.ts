@@ -1,15 +1,12 @@
 //type AddPostActionType = ReturnType<typeof addPostActionCreator>
 import {Dispatch} from "redux";
 import {profileAPI} from "../../api/api";
-import {message} from "antd";
 
 type AddPostActionType = {
     type: 'ADD-POST'
+    newPost:string
 }
-type UpdateNewPostTextActionType = {
-    type: "UPDATE-NEW-POST-TEXT"
-    newPostText: string
-}
+
 type SetProfileStatusType = ReturnType<typeof setProfileStatus>
 type PostType = {
     id: number
@@ -52,7 +49,7 @@ export type  InitialStateType = {
     profile: ProfileItemPropsType|null
     status:string
 }
-type ActionsType = AddPostActionType | UpdateNewPostTextActionType | SetUserProfileType | SetProfileStatusType
+type ActionsType = AddPostActionType | SetUserProfileType | SetProfileStatusType
 
 const profileReducer = (state:InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
@@ -60,13 +57,11 @@ const profileReducer = (state:InitialStateType = initialState, action: ActionsTy
 
             let newPost: PostType = {
                 id: new Date().getTime(),
-                message: state.newPostText,
+                message: action.newPost,
                 likeCounts: 0
             }
 
-            return {...state, posts: [...state.posts, newPost], newPostText: ''}
-        case "UPDATE-NEW-POST-TEXT":
-            return {...state, newPostText: action.newPostText}
+            return {...state, posts: [...state.posts, newPost]}
         case "SET-USER-PROFILE": {
             return {...state, profile: action.profile}
         }
@@ -78,16 +73,12 @@ const profileReducer = (state:InitialStateType = initialState, action: ActionsTy
     }
 }
 
-export const addPostActionCreator = (): AddPostActionType => ({type: "ADD-POST"})
+export const addPostActionCreator = (newPost:string): AddPostActionType => ({type: "ADD-POST", newPost})
 export const setUserProfile = (profile: ProfileItemPropsType) => {
     return ( {
     type: "SET-USER-PROFILE" as const,
     profile
 })}
-export const updateNewPostTextAC = (text: string): UpdateNewPostTextActionType => ({
-    type: "UPDATE-NEW-POST-TEXT",
-    newPostText: text
-})
 export const setProfileStatus = (status: string) => ({
     type:'SET-STATUS',
     status
