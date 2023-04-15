@@ -3,17 +3,24 @@ import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Input} from "../Common/forms/formsControls/input/Input";
 import {required} from "../../utils/validators/validators";
 import {loginTC} from "../../redux/reducers/auth-reducer";
-import {useDispatch} from "react-redux";
-
+import {connect} from "react-redux";
+import {loginDataType} from "../../api/api";
+import {Redirect} from "react-router-dom";
+import {RootTypeReduxState} from "../../redux/redux-store";
+import s from "./Login.module.css"
 type FormDataType = {
-  email:string
-  password:string
-  rememberMe:boolean
+  email: string
+  password: string
+  rememberMe: boolean
 }
-export const Login = () => {
-  let dispatch = useDispatch()
+type LoginPropsType = MapDispatchToPropsType & MapStateToPropsType
+export const Login = (props: LoginPropsType) => {
+  //let dispatch = useDispatch()
   const onSubmit = (formData: FormDataType) => {
-    dispatch(loginTC(formData))
+    props.loginTC(formData)
+  }
+  if (props.isAuth) {
+    return <Redirect to={'/profile'}/>
   }
   return (
     <div>
@@ -23,7 +30,7 @@ export const Login = () => {
   );
 };
 
-const LoginForm : React.FC<InjectedFormProps<FormDataType>> = (props) => {
+const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
 
   return (
     <form onSubmit={props.handleSubmit}>
@@ -36,6 +43,9 @@ const LoginForm : React.FC<InjectedFormProps<FormDataType>> = (props) => {
       <div>
         <Field component={Input} name={'rememberMe'} type="checkbox"/> remember me
       </div>
+      {
+        props.error && <div className={s.formCommonError}>{props.error}</div>
+      }
       <div>
         <button>
           login
@@ -48,3 +58,17 @@ const LoginForm : React.FC<InjectedFormProps<FormDataType>> = (props) => {
 const ReduxLoginForm = reduxForm<FormDataType>({
   form: 'login'
 })(LoginForm)
+
+export type MapDispatchToPropsType = {
+  loginTC: (data: loginDataType) => void
+}
+type MapStateToPropsType = {
+  isAuth: boolean
+}
+const mapStateToProps = (state: RootTypeReduxState): MapStateToPropsType => {
+  return {
+    isAuth: state.auth.isAuth
+  }
+}
+
+export const LoginContainer = connect(mapStateToProps, {loginTC})(Login)

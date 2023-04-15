@@ -9,7 +9,7 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import {Login} from "./components/Login/Login";
+import {LoginContainer} from "./components/Login/Login";
 
 type AppPropsType = {
     // store: RootTypeStore
@@ -31,7 +31,7 @@ const App = (props: AppPropsType) => {
                 <Route path={'/news'} render={() => <News/>}/>
                 <Route path={'/music'} render={() => <Music/>}/>
                 <Route path={'/settings'} render={() => <Settings/>}/>
-                <Route path={'/login'} render={() => <Login/>}/>
+                <Route path={'/login'} render={() => <LoginContainer/>}/>
             </div>
         </div>
     );
