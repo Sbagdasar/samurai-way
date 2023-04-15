@@ -1,6 +1,6 @@
-import {Dispatch} from "redux";
-import {profileAPI} from "../../api/api";
+import {loginDataType, profileAPI} from "../../api/api";
 import {setUserProfile} from "./profile-reducer";
+import {AppThunkType} from "../redux-store";
 
 export type  InitialStateType = {
     id:number|null
@@ -14,13 +14,11 @@ let initialState:InitialStateType={
     login:null,
     isAuth:false
 }
-type SetUserDataACType = {
-    type:"SET-USER-DATA",
-    data: InitialStateType
-}
-type ActionsType = SetUserDataACType
+type SetUserDataACType = ReturnType<typeof setAuthUserData>
 
-export const authReducer = (state:InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export type AuthActionsType = SetUserDataACType
+
+export const authReducer = (state:InitialStateType = initialState, action: AuthActionsType): InitialStateType => {
     switch (action.type) {
         case "SET-USER-DATA":{
             return {
@@ -38,7 +36,8 @@ export const setAuthUserData=(id:number, login:string, email:string)=>({
     data:{id,email,login}
 })
 
-export const authMeTC = ()=>(dispatch:Dispatch)=>{
+
+export const authMeTC = (): AppThunkType=>(dispatch)=>{
     profileAPI.getAuth().then(data => {
         if (data.resultCode === 0) {
             const {id, login, email} = data.data
@@ -46,6 +45,15 @@ export const authMeTC = ()=>(dispatch:Dispatch)=>{
             profileAPI.getProfile(id).then(data => {
                dispatch(setUserProfile(data.profile))
             })
+        }
+    })
+}
+
+
+export const loginTC =(data:loginDataType): AppThunkType=>(dispatch)=>{
+    profileAPI.login(data).then(res=>{
+        if(res.resultCode == 0){
+            dispatch(authMeTC())
         }
     })
 }

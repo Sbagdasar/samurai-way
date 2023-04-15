@@ -25,9 +25,9 @@ export type AddNewMessageActionType = {
     message:string
 }
 
-type ActionsType = AddNewMessageActionType
+export type DialogsActionsType = AddNewMessageActionType
 
-const dialogsReducer=(state:InitialStateType=initialState, action:ActionsType):InitialStateType=>{
+const dialogsReducer=(state:InitialStateType=initialState, action:DialogsActionsType):InitialStateType=>{
     switch (action.type) {
         case "ADD-NEW-MESSAGE":
             let newMessage: MessageType = {

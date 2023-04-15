@@ -49,9 +49,9 @@ export type  InitialStateType = {
     profile: ProfileItemPropsType|null
     status:string
 }
-type ActionsType = AddPostActionType | SetUserProfileType | SetProfileStatusType
+export type ProfileActionsType = AddPostActionType | SetUserProfileType | SetProfileStatusType
 
-const profileReducer = (state:InitialStateType = initialState, action: ActionsType): InitialStateType => {
+const profileReducer = (state:InitialStateType = initialState, action: ProfileActionsType): InitialStateType => {
     switch (action.type) {
         case "ADD-POST":
 

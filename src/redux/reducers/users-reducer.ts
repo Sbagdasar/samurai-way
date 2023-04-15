@@ -47,7 +47,7 @@ type SetCurrentPageACType = ReturnType<typeof setCurrentPage>
 type SetTotalUsersCountACType = ReturnType<typeof setTotalUsersCount>
 type ToggleIsFetchingACType = ReturnType<typeof toggleIsFetching>
 type FollowingInProgressACType = ReturnType<typeof toggleFollowingInProgress>
-type ActionsType =
+export type UsersActionsType =
     FollowACType
     | UnFollowACType
     | SetUsersACType
@@ -56,7 +56,7 @@ type ActionsType =
     | ToggleIsFetchingACType
     | FollowingInProgressACType
 
-export const usersReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const usersReducer = (state: InitialStateType = initialState, action: UsersActionsType): InitialStateType => {
     switch (action.type) {
         case "FOLLOW": {
             return {
