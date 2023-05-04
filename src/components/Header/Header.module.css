@@ -14,3 +14,7 @@
     color: #fff;
     text-decoration: none;
 }
+.ava{
+    max-width: 50px;
+    border-radius: 50%;
+}

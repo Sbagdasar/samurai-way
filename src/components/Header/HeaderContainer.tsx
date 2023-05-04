@@ -12,9 +12,9 @@ class HeaderContainer extends React.Component<HeaderContainerPropsType, RootType
     super(props);
   }
 
-  componentDidMount() {
-    this.props.authMeTC()
-  }
+  // componentDidMount() {
+  //   this.props.authMeTC()
+  // }
 
   render() {
     return <Header {...this.props}/>

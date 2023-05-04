@@ -1,7 +1,7 @@
 import React from "react";
 import s from "./Header.module.css";
 import {NavLink} from "react-router-dom";
-
+import defaultAva from '../../assets/images/usersPage/defaultUser.jpeg'
 type HeaderPropsType = {
   login: string | null,
   isAuth: boolean
@@ -25,7 +25,8 @@ export const Header: React.FC<HeaderPropsType> = (props) => {
             : <NavLink to={'/login'}>Login</NavLink>
         }
         {
-          props.profilePhoto ? null : props.isAuth && <img src={props.profilePhoto} alt="profile photo"/>
+          props.profilePhoto ? null : props.isAuth && <img src={props.profilePhoto ? props.profilePhoto: defaultAva}
+                                                           alt="profile photo" className={s.ava}/>
         }
 
       </div>
