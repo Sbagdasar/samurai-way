@@ -1,5 +1,4 @@
 import {loginDataType, profileAPI} from "../../api/api";
-import {setUserProfile} from "./profile-reducer";
 import {AppThunkType} from "../redux-store";
 import {stopSubmit} from "redux-form";
 
@@ -38,7 +37,7 @@ export const setAuthUserData=(id:number | null, login:string|null, email:string|
 
 
 export const authMeTC = (): AppThunkType=>(dispatch)=>{
-    profileAPI.getAuth().then(data => {
+    return profileAPI.getAuth().then(data => {
         if (data.resultCode === 0) {
             const {id, login, email} = data.data
             dispatch(setAuthUserData(id, login, email, true))
