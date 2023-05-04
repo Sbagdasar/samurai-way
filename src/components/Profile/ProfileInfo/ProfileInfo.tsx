@@ -3,6 +3,7 @@ import s from "./Profilenfo.module.css";
 import {ProfileItemPropsType} from "../../../redux/reducers/profile-reducer";
 import {Preloader} from "../../Common/Preloader/Preloader";
 import {ProfileStatus} from "../ProfileStatus/ProfileStatus";
+import defaultImage from  '../../../assets/images/usersPage/defaultUser.jpeg'
 type ProfileInfoPropsType={
     profile:ProfileItemPropsType|null
     status:string
@@ -21,7 +22,8 @@ export const ProfileInfo = (props:ProfileInfoPropsType) => {
                 </div>*/}
                 <div className={s.descriptionBlock}>
                     <div>
-                        <img src={props.profile.photos.small} alt={'props.profile.photos.small'}/>
+                        <img src={props.profile.photos.small ? props.profile.photos.small : defaultImage}
+                             alt={'props.profile.photos.small'} className={s.profilePhoto}/>
                     </div>
                     <ProfileStatus status={props.status} updateStatusTC={props.updateStatusTC}/>
                     <div>
