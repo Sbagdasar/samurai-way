@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import {Navbar} from "./components/Navbar/Navbar";
 import {Route} from "react-router-dom";
@@ -10,6 +10,10 @@ import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import {LoginContainer} from "./components/Login/Login";
+import {useDispatch, useSelector} from "react-redux";
+import {initializeApp} from "./redux/reducers/app-reducer";
+import {RootTypeReduxState} from "./redux/redux-store";
+import {Preloader} from "./components/Common/Preloader/Preloader";
 
 type AppPropsType = {
     // store: RootTypeStore
@@ -17,6 +21,16 @@ type AppPropsType = {
 
 const App = (props: AppPropsType) => {
     // const state: RootTypeReduxState = store.getState()
+  const isInitialized = useSelector<RootTypeReduxState, boolean>(state => state.app.initialized)
+  let dispatch = useDispatch()
+  useEffect(()=>{
+    dispatch(initializeApp())
+  }, [])
+
+  if(!isInitialized){
+    return <Preloader/>
+  }
+
     return (
         <div className='app-wrapper'>
             <HeaderContainer/>
