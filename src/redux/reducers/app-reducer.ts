@@ -3,7 +3,6 @@ import {authMeTC} from "./auth-reducer";
 
 export type  InitialStateType = {
   initialized: boolean
-
 }
 let initialState: InitialStateType = {
   initialized: false
@@ -11,9 +10,9 @@ let initialState: InitialStateType = {
 
 export const appReducer = (state: InitialStateType = initialState, action: AppReducerActionsType): InitialStateType => {
   switch (action.type) {
-    case "INITIALIZE-SUCCESS":{
+    case "APP/INITIALIZE-SUCCESS": {
       return {
-        ...state, initialized:true
+        ...state, initialized: true
       }
     }
     default: {
@@ -23,15 +22,14 @@ export const appReducer = (state: InitialStateType = initialState, action: AppRe
 }
 
 //actions
-const initializeSuccess = () => ({type: 'INITIALIZE-SUCCESS'} as const)
+const initializeSuccess = () => ({type: 'APP/INITIALIZE-SUCCESS'} as const)
 
 //thunks
 
-export const initializeApp = ():AppThunkType => (dispatch)=> {
-let authPromise = dispatch(authMeTC())
-  Promise.all([authPromise]).then(()=>{
-    dispatch(initializeSuccess())
-  })
+export const initializeApp = (): AppThunkType => async (dispatch) => {
+  let authPromise = dispatch(authMeTC())
+  let response = await Promise.all([authPromise])
+  dispatch(initializeSuccess())
 }
 
 //types

@@ -21,7 +21,7 @@ export type MessageType = {
 }
 export type InitialStateType = typeof initialState
 export type AddNewMessageActionType = {
-    type: "ADD-NEW-MESSAGE",
+    type: "DIALOGS/ADD-NEW-MESSAGE",
     message:string
 }
 
@@ -29,7 +29,7 @@ export type DialogsActionsType = AddNewMessageActionType
 
 const dialogsReducer=(state:InitialStateType=initialState, action:DialogsActionsType):InitialStateType=>{
     switch (action.type) {
-        case "ADD-NEW-MESSAGE":
+        case "DIALOGS/ADD-NEW-MESSAGE":
             let newMessage: MessageType = {
                 id: new Date().getTime(),
                 message: action.message
@@ -43,5 +43,5 @@ const dialogsReducer=(state:InitialStateType=initialState, action:DialogsActions
 
 export default dialogsReducer;
 export const addNewMessageAC = (message:string): AddNewMessageActionType => ({
-    type: "ADD-NEW-MESSAGE", message
+    type: "DIALOGS/ADD-NEW-MESSAGE", message
 } as const)
