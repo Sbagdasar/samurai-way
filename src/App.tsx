@@ -15,40 +15,35 @@ import {initializeApp} from "./redux/reducers/app-reducer";
 import {RootTypeReduxState} from "./redux/redux-store";
 import {Preloader} from "./components/Common/Preloader/Preloader";
 
-type AppPropsType = {
-    // store: RootTypeStore
-}
-
-const App = (props: AppPropsType) => {
-    // const state: RootTypeReduxState = store.getState()
+const App = () => {
   const isInitialized = useSelector<RootTypeReduxState, boolean>(state => state.app.initialized)
   let dispatch = useDispatch()
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(initializeApp())
   }, [])
 
-  if(!isInitialized){
+  if (!isInitialized) {
     return <Preloader/>
   }
 
-    return (
-        <div className='app-wrapper'>
-            <HeaderContainer/>
-            <div className={'navSidebar'}>
-                <Navbar/>
-                {/*<Sidebar friends={state.sidebar.friends}/>*/}
-            </div>
-            <div className={'app-wrapper-content'}>
-                <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
-                <Route path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>
-                <Route path={'/users'} render={() => <UsersContainer/>}/>
-                <Route path={'/news'} render={() => <News/>}/>
-                <Route path={'/music'} render={() => <Music/>}/>
-                <Route path={'/settings'} render={() => <Settings/>}/>
-                <Route path={'/login'} render={() => <LoginContainer/>}/>
-            </div>
-        </div>
-    );
+  return (
+    <div className='app-wrapper'>
+      <HeaderContainer/>
+      <div className={'navSidebar'}>
+        <Navbar/>
+        {/*<Sidebar friends={state.sidebar.friends}/>*/}
+      </div>
+      <div className={'app-wrapper-content'}>
+        <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
+        <Route path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>
+        <Route path={'/users'} render={() => <UsersContainer/>}/>
+        <Route path={'/news'} render={() => <News/>}/>
+        <Route path={'/music'} render={() => <Music/>}/>
+        <Route path={'/settings'} render={() => <Settings/>}/>
+        <Route path={'/login'} render={() => <LoginContainer/>}/>
+      </div>
+    </div>
+  );
 }
 
 export default App;

@@ -2,6 +2,7 @@ import React from 'react';
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "../../../utils/validators/validators";
 import {Textarea} from "./formsControls/textarea/Textarea";
+import {createField} from "./formsControls/createField/createField";
 
 export type FormDataAddPostFormType = {
   newPostBody: string
@@ -12,8 +13,8 @@ export const AddNewPostForm = (props: InjectedFormProps<FormDataAddPostFormType>
   return (
     <div>
       <form onSubmit={props.handleSubmit}>
-        <Field name={"newPostBody"} component={Textarea} placeholder={'Enter your post text'}
-               validate={[required,maxLengthCreatorValidate ]}/>
+        {createField('Enter your post text', "newPostBody",[required,maxLengthCreatorValidate ] , Textarea, null)}
+
         <div>
           <button>add post</button>
         </div>

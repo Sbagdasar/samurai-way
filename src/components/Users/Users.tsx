@@ -3,6 +3,7 @@ import s from "./Users.module.css";
 import defaultUser from "../../assets/images/usersPage/defaultUser.jpeg";
 import {UserType} from "../../redux/reducers/users-reducer";
 import {NavLink} from "react-router-dom";
+import {Paginator} from "../Common/Paginator/Paginator";
 
 type UsersPropsType = {
     totalUsersCount: number
@@ -14,31 +15,23 @@ type UsersPropsType = {
     followTC:(id:number)=>void
     unfollowTC:(id:number)=>void
 }
-export const Users = (props: UsersPropsType) => {
-    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
-    let pages = Array.from({length: +pagesCount}, (_, i: number) => +i + 1)
+export const Users = ({getCurrentPageUsers, unfollowTC, followTC,pageSize,currentPage, totalUsersCount, ...props}: UsersPropsType) => {
+
     const onSetCurrentPage = (page: number) => {
-        props.getCurrentPageUsers(page)
+        getCurrentPageUsers(page)
     }
     const unFollowHandler = (id: number) => {
-        props.unfollowTC(id)
+        unfollowTC(id)
     }
     const followHandler = (id: number) => {
-        props.followTC(id)
+        followTC(id)
     }
     return (
         <div>
-            <div className={s.pagination}>
-                {
-                    pages.map(p => {
-                        return (
-                            <span key={p}
-                                  className={props.currentPage === p ? s.selectedPage : s.page}
-                                  onClick={() => onSetCurrentPage(p)}>{p}</span>
-                        )
-                    })
-                }
-            </div>
+            <Paginator pageSize={pageSize}
+                       currentPage={currentPage}
+                       onSetCurrentPage={onSetCurrentPage}
+                       totalItemsCount={totalUsersCount}/>
             {props.users.map(user => {
 
                 return (
