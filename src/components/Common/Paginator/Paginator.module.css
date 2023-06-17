@@ -1,0 +1,14 @@
+.selectedPage{
+    font-weight: bold;
+}
+.page{
+    cursor: pointer;
+    margin-right: 4px;
+}
+.page:hover{
+    color:blue;
+}
+.pagination{
+    max-width: 200px;
+    overflow: hidden;
+}
