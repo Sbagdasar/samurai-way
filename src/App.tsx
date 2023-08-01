@@ -1,21 +1,19 @@
-import React, {useEffect} from 'react';
+import React, {lazy, Suspense, useEffect} from 'react';
 import './App.css';
 import {Navbar} from "./components/Navbar/Navbar";
-import {Route} from "react-router-dom";
+import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
-import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import {LoginContainer} from "./components/Login/Login";
-import {useDispatch, useSelector} from "react-redux";
+import {Provider, useDispatch, useSelector} from "react-redux";
 import {initializeApp} from "./redux/reducers/app-reducer";
-import {RootTypeReduxState} from "./redux/redux-store";
+import {RootTypeReduxState, store} from "./redux/redux-store";
 import {Preloader} from "./components/Common/Preloader/Preloader";
+import {LoginContainer} from "./components/Login/Login";
 
-const App = () => {
+const AppContainer = () => {
   const isInitialized = useSelector<RootTypeReduxState, boolean>(state => state.app.initialized)
   let dispatch = useDispatch()
   useEffect(() => {
@@ -25,25 +23,34 @@ const App = () => {
   if (!isInitialized) {
     return <Preloader/>
   }
+  const ProfileContainer = lazy(() => import("./components/Profile/ProfileContainer"))
+  const DialogsContainer = lazy(() => import("./components/Dialogs/DialogsContainer"))
 
-  return (
-    <div className='app-wrapper'>
+  return (<div className='app-wrapper'>
       <HeaderContainer/>
       <div className={'navSidebar'}>
         <Navbar/>
         {/*<Sidebar friends={state.sidebar.friends}/>*/}
       </div>
       <div className={'app-wrapper-content'}>
-        <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
-        <Route path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>
-        <Route path={'/users'} render={() => <UsersContainer/>}/>
-        <Route path={'/news'} render={() => <News/>}/>
-        <Route path={'/music'} render={() => <Music/>}/>
-        <Route path={'/settings'} render={() => <Settings/>}/>
-        <Route path={'/login'} render={() => <LoginContainer/>}/>
+        <Suspense fallback={<Preloader/>}>
+          <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
+          <Route path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>
+          <Route path={'/users'} render={() => <UsersContainer/>}/>
+          <Route path={'/news'} render={() => <News/>}/>
+          <Route path={'/music'} render={() => <Music/>}/>
+          <Route path={'/settings'} render={() => <Settings/>}/>
+          <Route path={'/login'} render={() => <LoginContainer/>}/>
+        </Suspense>
       </div>
-    </div>
-  );
+    </div>);
 }
 
-export default App;
+export const SamuraiJSApp = () => {
+  return (<BrowserRouter>
+      <Provider store={store}>
+        <AppContainer/>
+      </Provider>
+    </BrowserRouter>)
+}
+

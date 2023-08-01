@@ -1,9 +1,7 @@
 import React from 'react';
-import s from "./Users.module.css";
-import defaultUser from "../../assets/images/usersPage/defaultUser.jpeg";
 import {UserType} from "../../redux/reducers/users-reducer";
-import {NavLink} from "react-router-dom";
 import {Paginator} from "../Common/Paginator/Paginator";
+import {User} from "./User/User";
 
 type UsersPropsType = {
     totalUsersCount: number
@@ -35,37 +33,7 @@ export const Users = ({getCurrentPageUsers, unfollowTC, followTC,pageSize,curren
             {props.users.map(user => {
 
                 return (
-                    <div key={user.id} className={s.usersContainer}>
-                        <div className={s.userItemContainer}>
-                            <div className={s.avatarBlock}>
-                                <div>
-                                    <NavLink to={'/profile/' + user.id}>
-                                        <img
-                                            src={user.photos.small ? user.photos.small : defaultUser}
-                                            alt=""/>
-                                    </NavLink>
-                                </div>
-                                <div>
-                                    {user.followed ?
-                                        <button disabled={props.followingInProgress.some(id=>id===user.id)}
-                                                onClick={() => unFollowHandler(user.id)}>Unfollow</button> :
-                                        <button disabled={props.followingInProgress.some(id=>id===user.id)}
-                                                onClick={() => followHandler(user.id)}>Follow</button>
-                                    }
-                                </div>
-                            </div>
-                            <div className={s.userInfo}>
-                                <div>
-                                    <div>{user.name}</div>
-                                    <div>{user.status}</div>
-                                </div>
-                                <div>
-                                    <div>{"user.location.country"}</div>
-                                    <div>{"user.location.city"}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <User key={user.id} user={user} unFollowHandler={unFollowHandler} followHandler={followHandler} followingInProgress={props.followingInProgress}/>
                 )
             })}
         </div>

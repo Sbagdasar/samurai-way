@@ -1,6 +1,5 @@
 import React from "react";
-import {RootTypeStore, store} from "./redux/redux-store";
-import App from "./App";
+import {RootTypeStore} from "./redux/redux-store";
 
 type ProviderPropsType = {
     store: RootTypeStore
