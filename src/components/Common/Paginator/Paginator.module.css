@@ -8,7 +8,3 @@
 .page:hover{
     color:blue;
 }
-.pagination{
-    max-width: 200px;
-    overflow: hidden;
-}
