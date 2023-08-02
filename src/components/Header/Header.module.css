@@ -1,14 +1,27 @@
-.header {
+.headerContainer{
     grid-area: h;
-    background-color: #d1d1d1;
+    width: 100%;
+    background-color: #fff;
+}
+.header {
+    display: grid;
+    grid-template-areas:"l n p";
+    grid-template-rows: 100px 1fr;
+    grid-template-columns: 2fr 10fr;
+    grid-gap: 50px;
+    align-items: center;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .header img {
+    grid-area: l;
     margin: 20px 20px;
-    width: 100px;
+    width: 100%;
 }
 .login{
-    float: right;
+    grid-area: p;
 }
 .login > a{
     color: #fff;

@@ -9,13 +9,16 @@ export type ProfilePropsType = {
   getProfileTC: (userId: string) => void
   updateStatusTC: (status: string) => void
   status: string
+  isOwner:boolean
+  saveFile:(file:File)=>void
+
 }
 
 export const Profile = (props: ProfilePropsType) => {
 
   return (
     <div>
-      <ProfileInfo profile={props.profile} status={props.status} updateStatusTC={props.updateStatusTC}/>
+      <ProfileInfo saveFile={props.saveFile} isOwner={props.isOwner} profile={props.profile} status={props.status} updateStatusTC={props.updateStatusTC}/>
       <MyPostsContainer/>
     </div>
   );

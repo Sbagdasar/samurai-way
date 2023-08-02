@@ -1,7 +1,10 @@
 import React from "react";
 import s from "./Header.module.css";
 import {NavLink} from "react-router-dom";
-import defaultAva from '../../assets/images/usersPage/defaultUser.jpeg'
+import defaultAva from 'assets/images/usersPage/defaultUser.jpeg'
+import {Navbar} from "components/Navbar/Navbar";
+import logo from "assets/images/logo/logo.8a063c2a.svg"
+
 type HeaderPropsType = {
   login: string | null,
   isAuth: boolean
@@ -11,25 +14,29 @@ type HeaderPropsType = {
 }
 export const Header: React.FC<HeaderPropsType> = (props) => {
   return (
-    <header className={s.header}>
-      <img src="https://i.pinimg.com/originals/36/3d/7f/363d7f067f650aead9dc45de0d05471d.png" alt="logo"/>
-      <div className={s.login}>
-        {
-          props.isAuth ?
-            <div>
-              {props.login}
-              <button onClick={props.logoutTC}>
-                logout
-              </button>
-            </div>
-            : <NavLink to={'/login'}>Login</NavLink>
-        }
-        {
-          props.profilePhoto ? null : props.isAuth && <img src={props.profilePhoto ? props.profilePhoto: defaultAva}
-                                                           alt="profile photo" className={s.ava}/>
-        }
+    <header className={s.headerContainer}>
+      <div className={s.header}>
+        <img src={logo} alt="logo"/>
+        <Navbar/>
+        <div className={s.login}>
+          {
+            props.isAuth ?
+              <div>
+                {props.login}
+                <button onClick={props.logoutTC}>
+                  logout
+                </button>
+              </div>
+              : <NavLink to={'/login'}>Login</NavLink>
+          }
+          {
+            props.profilePhoto ? null : props.isAuth && <img src={props.profilePhoto ? props.profilePhoto : defaultAva}
+                                                             alt="profile photo" className={s.ava}/>
+          }
 
+        </div>
       </div>
+
     </header>
   )
 }

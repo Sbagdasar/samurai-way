@@ -29,7 +29,7 @@ type ProfileContacts = {
   github: string | null,
   mainLink: string | null
 }
-type ProfilePhotos = {
+export type ProfilePhotos = {
   small: string,
   large: string
 }
@@ -49,7 +49,7 @@ export type  InitialStateType = {
   profile: ProfileItemPropsType | null
   status: string
 }
-export type ProfileActionsType = AddPostActionType | SetUserProfileType | SetProfileStatusType
+export type ProfileActionsType = AddPostActionType | SetUserProfileType | SetProfileStatusType | ReturnType<typeof setProfilePhoto>
 
 const profileReducer = (state: InitialStateType = initialState, action: ProfileActionsType): InitialStateType => {
   switch (action.type) {
@@ -68,6 +68,10 @@ const profileReducer = (state: InitialStateType = initialState, action: ProfileA
     case "PROFILE/SET-STATUS": {
       return {...state, status: action.status}
     }
+    case "PROFILE/SET-PHOTO":{
+      // @ts-ignore
+      return {...state, profile:{ ...state.profile, photos:action.photos}}
+    }
     default:
       return state
   }
@@ -84,6 +88,11 @@ export const setProfileStatus = (status: string) => ({
   type: 'PROFILE/SET-STATUS',
   status
 } as const)
+export const setProfilePhoto = (photos: ProfilePhotos) => ({
+  type: 'PROFILE/SET-PHOTO',
+  photos
+} as const)
+
 
 export const getProfileTC = (userId: string) => async (dispatch: Dispatch) => {
   let data = await profileAPI.getProfile(userId)
@@ -101,8 +110,14 @@ export const updateStatusTC = (status: string) => async (dispatch: Dispatch) => 
   if (res.resultCode === 0) {
     dispatch(setProfileStatus(status))
   }
-
-
+}
+export const saveFileTC = (file: File) => async (dispatch: Dispatch) => {
+  let formFileData = new FormData()
+  formFileData.append('image', file)
+  let res = await profileAPI.saveProfileFile(formFileData)
+  if (res.resultCode === 0) {
+   dispatch(setProfilePhoto(res.data.photos))
+  }
 }
 
 export default profileReducer;

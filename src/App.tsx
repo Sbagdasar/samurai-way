@@ -1,6 +1,5 @@
 import React, {lazy, Suspense, useEffect} from 'react';
 import './App.css';
-import {Navbar} from "./components/Navbar/Navbar";
 import {HashRouter, Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
@@ -28,10 +27,6 @@ const AppContainer = () => {
 
   return (<div className='app-wrapper'>
       <HeaderContainer/>
-      <div className={'navSidebar'}>
-        <Navbar/>
-        {/*<Sidebar friends={state.sidebar.friends}/>*/}
-      </div>
       <div className={'app-wrapper-content'}>
         <Suspense fallback={<Preloader/>}>
           <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>

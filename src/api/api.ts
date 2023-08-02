@@ -1,4 +1,5 @@
 import axios from "axios";
+import {ProfilePhotos} from "../redux/reducers/profile-reducer";
 
 const instance = axios.create({
   withCredentials: true,
@@ -35,6 +36,9 @@ export const profileAPI = {
   updateStatus(status: string) {
     return instance.put(`/profile/status`, {status}).then(response => response.data)
   },
+  saveProfileFile(file:FormData){
+    return instance.put<ResponseDataType<{photos:ProfilePhotos}>>(`/profile/photo`, file).then(response => response.data)
+  },
   login(data: loginDataType) {
     return instance.post('/auth/login', {...data}).then(res => res.data)
   },
@@ -48,4 +52,9 @@ export type loginDataType = {
   password: string
   rememberMe?: boolean
   captcha?: boolean
+}
+type ResponseDataType<D> ={
+  resultCode: number
+  messages: string[],
+  data: D
 }

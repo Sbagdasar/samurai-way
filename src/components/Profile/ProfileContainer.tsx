@@ -2,7 +2,13 @@ import React from 'react';
 import {Profile} from "./Profile";
 import {RootTypeReduxState} from "../../redux/redux-store";
 import {connect} from "react-redux";
-import {getProfileTC, getStatusTC, ProfileItemPropsType, updateStatusTC} from "../../redux/reducers/profile-reducer";
+import {
+  getProfileTC,
+  getStatusTC,
+  ProfileItemPropsType,
+  saveFileTC,
+  updateStatusTC
+} from "../../redux/reducers/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
@@ -18,6 +24,7 @@ type MapDispatchToPropsType = {
   getProfileTC: (userId: string) => void
   getStatusTC: (userId: string) => void
   updateStatusTC: (status: string) => void
+  saveFileTC:(file:File)=>void
 }
 type ProfileContainerType = MapStateToPropsType & MapDispatchToPropsType
 
@@ -32,7 +39,7 @@ class ProfileContainer extends React.Component<DataContainerComponentType> {
     super(props);
   }
 
-  componentDidMount() {
+  refreshProfile(){
     let userId = this.props.match.params.userId
     if (!userId) {
       userId = this.props.authorizedUserId + ''
@@ -40,11 +47,19 @@ class ProfileContainer extends React.Component<DataContainerComponentType> {
     this.props.getProfileTC(userId)
     this.props.getStatusTC(userId)
   }
+  componentDidMount() {
+    this.refreshProfile()
+  }
+  componentDidUpdate(prevProps: Readonly<DataContainerComponentType>, prevState: Readonly<{}>, snapshot?: any) {
+    if(this.props.match.params.userId != prevProps.match.params.userId){
+      this.refreshProfile()
+    }
+  }
 
   render() {
 
     return (
-      <Profile {...this.props}/>
+      <Profile {...this.props} isOwner={!this.props.match.params.userId} saveFile={this.props.saveFileTC}/>
     )
   }
 };
@@ -58,5 +73,6 @@ const mapStateToProps = (state: RootTypeReduxState): MapStateToPropsType => ({
 export default compose<React.ComponentType>(connect(mapStateToProps, {
   getProfileTC,
   getStatusTC,
-  updateStatusTC
+  updateStatusTC,
+  saveFileTC
 }), withAuthRedirect, withRouter)(ProfileContainer)
