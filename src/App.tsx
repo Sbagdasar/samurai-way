@@ -1,16 +1,16 @@
 import React, {lazy, Suspense, useEffect} from 'react';
 import './App.css';
 import {HashRouter, Route} from "react-router-dom";
-import {News} from "./components/News/News";
-import {Music} from "./components/Music/Music";
-import {Settings} from "./components/Settings/Settings";
+import {News} from "components/News/News";
+import {Music} from "components/Music/Music";
+import {Settings} from "components/Settings/Settings";
 import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import {Provider, useDispatch, useSelector} from "react-redux";
-import {initializeApp} from "./redux/reducers/app-reducer";
-import {RootTypeReduxState, store} from "./redux/redux-store";
-import {Preloader} from "./components/Common/Preloader/Preloader";
-import {LoginContainer} from "./components/Login/Login";
+import {initializeApp} from "redux/reducers/app-reducer";
+import {RootTypeReduxState, store} from "redux/redux-store";
+import {Preloader} from "components/Common/Preloader/Preloader";
+import {LoginContainer} from "components/Login/Login";
 
 const AppContainer = () => {
   const isInitialized = useSelector<RootTypeReduxState, boolean>(state => state.app.initialized)
