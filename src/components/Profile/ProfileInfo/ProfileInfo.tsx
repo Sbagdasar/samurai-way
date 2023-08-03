@@ -3,13 +3,12 @@ import s from "./Profilenfo.module.css";
 import {ProfileItemPropsType} from "../../../redux/reducers/profile-reducer";
 import {Preloader} from "../../Common/Preloader/Preloader";
 import defaultImage from '../../../assets/images/usersPage/defaultUser.jpeg'
-import {ProfileStatusF} from "../ProfileStatus/ProfileStatusF";
 import {Contacts} from "components/Profile/ProfileInfo/ProfileContacts/Contacts";
 
 type ProfileInfoPropsType = {
   profile: ProfileItemPropsType | null
   isOwner: boolean
-  saveFile:(file:File)=>void
+  saveFile: (file: File) => void
 }
 export const ProfileInfo = (props: ProfileInfoPropsType) => {
 
@@ -17,10 +16,10 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
     return <Preloader/>
   }
 
-  const onAvatarChange = (e:ChangeEvent<HTMLInputElement>)=>{
-      if(e.currentTarget.files?.length){
-         props.saveFile(e.currentTarget.files[0])
-      }
+  const onAvatarChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.currentTarget.files?.length) {
+      props.saveFile(e.currentTarget.files[0])
+    }
   }
 
   return (
@@ -33,7 +32,7 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
             {props.isOwner && <input type={'file'} onChange={onAvatarChange}/>}
           </div>
         </div>
-       <Contacts contacts={props.profile.contacts}/>
+        <Contacts contacts={props.profile.contacts}/>
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ type ContactsPropsType={
 export const Contacts = ({contacts}: ContactsPropsType) => {
   return (
     <div className={s.contactsBlock}>
-      <ul>
+      <ul className={s.contactsList}>
         {
           Object.entries(contacts).map(item=> {
             return(

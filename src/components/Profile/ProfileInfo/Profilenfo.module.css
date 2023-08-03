@@ -6,22 +6,22 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
+    width: 247px;
     max-width: 247px;
+    position: relative;
 }
 
 .imageContainer {
     width: 100%;
     text-align: center;
-    position: relative;
-    /*top: -95px;*/
+    position: absolute;
+    top: -95px;
     padding: 15px;
     border-bottom: 1px solid #e5e5e5;
 }
 
 .imageBlock {
-    position: relative;
-    top: -75px;
+
 }
 
 .profilePhoto {
