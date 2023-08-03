@@ -22,6 +22,12 @@ export const MyPosts = React.memo((props: MyPostsPropsType) => {
 
     return (
         <div className={s.postsBlock}>
+          {/*<ProfileStatusF status={props.status} updateStatusTC={props.updateStatusTC}/>*/}
+          {/*<div>*/}
+          {/*  <p>{props.profile.aboutMe}</p>*/}
+          {/*  <p>{props.profile.fullName}</p>*/}
+          {/*  <p>{props.profile.lookingForAJobDescription}</p>*/}
+          {/*</div>*/}
             <h3>My posts</h3>
             <ReduxAddNewPostForm onSubmit={addPost}/>
             <div className={s.posts}>

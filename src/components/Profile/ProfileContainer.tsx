@@ -1,6 +1,6 @@
 import React from 'react';
 import {Profile} from "./Profile";
-import {RootTypeReduxState} from "../../redux/redux-store";
+import {RootTypeReduxState} from "redux/redux-store";
 import {connect} from "react-redux";
 import {
   getProfileTC,
@@ -8,9 +8,9 @@ import {
   ProfileItemPropsType,
   saveFileTC,
   updateStatusTC
-} from "../../redux/reducers/profile-reducer";
+} from "redux/reducers/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {withAuthRedirect} from "hoc/withAuthRedirect";
 import {compose} from "redux";
 
 export type MapStateToPropsType = {

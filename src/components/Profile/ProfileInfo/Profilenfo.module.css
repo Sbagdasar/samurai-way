@@ -1,9 +1,35 @@
-.content_img {
+.profileInfoContainer {
+    background-color: #fff;
+}
+
+.descriptionBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
+    max-width: 247px;
 }
-.descriptionBlock{
-    padding: 10px;
+
+.imageContainer {
+    width: 100%;
+    text-align: center;
+    position: relative;
+    /*top: -95px;*/
+    padding: 15px;
+    border-bottom: 1px solid #e5e5e5;
 }
-.profilePhoto{
-    max-width: 200px;
+
+.imageBlock {
+    position: relative;
+    top: -75px;
+}
+
+.profilePhoto {
+    width: 100%;
+    max-width: 180px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+}
+.contactsBlock{
+
 }

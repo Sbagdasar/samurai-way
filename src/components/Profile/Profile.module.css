@@ -1,2 +1,8 @@
+.profileContainer{
+    display: grid;
+    grid-template-areas:"p p p" ;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 10fr 1fr;
 
+}
 

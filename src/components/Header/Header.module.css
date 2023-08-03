@@ -6,9 +6,9 @@
 .header {
     display: grid;
     grid-template-areas:"l n p";
-    grid-template-rows: 100px 1fr;
-    grid-template-columns: 2fr 10fr;
-    grid-gap: 50px;
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 2fr 10fr 2fr;
+    grid-gap: 0 50px;
     align-items: center;
     justify-content: center;
     max-width: 1200px;
@@ -22,10 +22,21 @@
 }
 .login{
     grid-area: p;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .login > a{
     color: #fff;
     text-decoration: none;
+}
+.backgroundImageHeader{
+    height: 200px;
+    width: 100%;
+    background-image: url("https://www.pixelstalk.net/wp-content/uploads/2016/06/High-Tech-Photo-HD.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 .ava{
     max-width: 50px;

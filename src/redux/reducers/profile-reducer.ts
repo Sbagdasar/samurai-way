@@ -1,6 +1,5 @@
-//type AddPostActionType = ReturnType<typeof addPostActionCreator>
 import {Dispatch} from "redux";
-import {profileAPI} from "../../api/api";
+import {profileAPI} from "api/api";
 
 type AddPostActionType = {
   type: 'PROFILE/ADD-POST'
@@ -19,7 +18,7 @@ let initialState: InitialStateType = {
   profile: null,
   status: ''
 }
-type ProfileContacts = {
+export type ProfileContacts = {
   facebook: string | null,
   website: string | null,
   vk: string | null,
@@ -49,7 +48,11 @@ export type  InitialStateType = {
   profile: ProfileItemPropsType | null
   status: string
 }
-export type ProfileActionsType = AddPostActionType | SetUserProfileType | SetProfileStatusType | ReturnType<typeof setProfilePhoto>
+export type ProfileActionsType =
+  AddPostActionType
+  | SetUserProfileType
+  | SetProfileStatusType
+  | ReturnType<typeof setProfilePhoto>
 
 const profileReducer = (state: InitialStateType = initialState, action: ProfileActionsType): InitialStateType => {
   switch (action.type) {
@@ -68,9 +71,9 @@ const profileReducer = (state: InitialStateType = initialState, action: ProfileA
     case "PROFILE/SET-STATUS": {
       return {...state, status: action.status}
     }
-    case "PROFILE/SET-PHOTO":{
+    case "PROFILE/SET-PHOTO": {
       // @ts-ignore
-      return {...state, profile:{ ...state.profile, photos:action.photos}}
+      return {...state, profile: {...state.profile, photos: action.photos}}
     }
     default:
       return state
@@ -116,7 +119,7 @@ export const saveFileTC = (file: File) => async (dispatch: Dispatch) => {
   formFileData.append('image', file)
   let res = await profileAPI.saveProfileFile(formFileData)
   if (res.resultCode === 0) {
-   dispatch(setProfilePhoto(res.data.photos))
+    dispatch(setProfilePhoto(res.data.photos))
   }
 }
 

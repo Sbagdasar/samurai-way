@@ -19,24 +19,24 @@ export const Header: React.FC<HeaderPropsType> = (props) => {
         <img src={logo} alt="logo"/>
         <Navbar/>
         <div className={s.login}>
+          <div>
+            {
+              !props.profilePhoto ? null : props.isAuth && <img src={props.profilePhoto ? props.profilePhoto : defaultAva}
+                                                                alt="profile photo" className={s.ava}/>
+            }
+          </div>
           {
             props.isAuth ?
               <div>
-                {props.login}
                 <button onClick={props.logoutTC}>
                   logout
                 </button>
               </div>
               : <NavLink to={'/login'}>Login</NavLink>
           }
-          {
-            props.profilePhoto ? null : props.isAuth && <img src={props.profilePhoto ? props.profilePhoto : defaultAva}
-                                                             alt="profile photo" className={s.ava}/>
-          }
-
         </div>
       </div>
-
+      <div className={s.backgroundImageHeader}></div>
     </header>
   )
 }
