@@ -1,5 +1,6 @@
 import {Dispatch} from "redux";
 import {profileAPI} from "api/api";
+import {AppThunkType} from "redux/redux-store";
 
 type AddPostActionType = {
   type: 'PROFILE/ADD-POST'
@@ -53,6 +54,7 @@ export type ProfileActionsType =
   | SetUserProfileType
   | SetProfileStatusType
   | ReturnType<typeof setProfilePhoto>
+  // | ReturnType<typeof editContacts>
 
 const profileReducer = (state: InitialStateType = initialState, action: ProfileActionsType): InitialStateType => {
   switch (action.type) {
@@ -63,7 +65,6 @@ const profileReducer = (state: InitialStateType = initialState, action: ProfileA
         message: action.newPost,
         likeCounts: 0
       }
-
       return {...state, posts: [...state.posts, newPost]}
     case "PROFILE/SET-USER-PROFILE": {
       return {...state, profile: action.profile}
@@ -75,6 +76,10 @@ const profileReducer = (state: InitialStateType = initialState, action: ProfileA
       // @ts-ignore
       return {...state, profile: {...state.profile, photos: action.photos}}
     }
+    // case "PROFILE/EDIT-CONTACTS":{
+    //   // @ts-ignore
+    //   return {...state, profile: {...state.profile, contacts: action.contacts}}
+    // }
     default:
       return state
   }
@@ -95,7 +100,7 @@ export const setProfilePhoto = (photos: ProfilePhotos) => ({
   type: 'PROFILE/SET-PHOTO',
   photos
 } as const)
-
+// export const editContacts = (contacts:ProfileContacts)=>( {type: 'PROFILE/EDIT-CONTACTS',contacts} as const)
 
 export const getProfileTC = (userId: string) => async (dispatch: Dispatch) => {
   let data = await profileAPI.getProfile(userId)
@@ -120,6 +125,19 @@ export const saveFileTC = (file: File) => async (dispatch: Dispatch) => {
   let res = await profileAPI.saveProfileFile(formFileData)
   if (res.resultCode === 0) {
     dispatch(setProfilePhoto(res.data.photos))
+  }
+}
+export const updateContactsTC = (contacts: any): AppThunkType=>async (dispatch, getState) => {
+ let profileRoot = getState().profilePage.profile
+  let userID = getState().auth.id
+ let profile = {...profileRoot, contacts: {...profileRoot?.contacts, ...contacts}, aboutMe:'Hello', lookingForAJob:true,
+   lookingForAJobDescription:'I am looking for a job',
+   fullName:'Samvel Bagdasaryan'}
+
+  let res = await profileAPI.updateContacts(profile as ProfileItemPropsType)
+
+  if (res.resultCode === 0) {
+    userID && dispatch(getProfileTC(userID + ""))
   }
 }
 

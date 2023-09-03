@@ -1,5 +1,5 @@
 import axios from "axios";
-import {ProfilePhotos} from "../redux/reducers/profile-reducer";
+import {ProfileItemPropsType, ProfilePhotos} from "../redux/reducers/profile-reducer";
 
 const instance = axios.create({
   withCredentials: true,
@@ -44,6 +44,9 @@ export const profileAPI = {
   },
   logout() {
     return instance.delete('/auth/login').then(res => res.data)
+  },
+  updateContacts(profile:ProfileItemPropsType){
+    return instance.put('/profile', profile).then(res => res.data)
   }
 }
 

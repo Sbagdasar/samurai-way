@@ -1,9 +1,10 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import s from "./Profilenfo.module.css";
-import {ProfileItemPropsType} from "../../../redux/reducers/profile-reducer";
-import {Preloader} from "../../Common/Preloader/Preloader";
-import defaultImage from '../../../assets/images/usersPage/defaultUser.jpeg'
+import {ProfileItemPropsType} from "redux/reducers/profile-reducer";
+import {Preloader} from "components/Common/Preloader/Preloader";
+import defaultImage from 'assets/images/usersPage/defaultUser.jpeg'
 import {Contacts} from "components/Profile/ProfileInfo/ProfileContacts/Contacts";
+import {EditContacts} from "components/Profile/ProfileInfo/ProfileContacts/EditContacts";
 
 type ProfileInfoPropsType = {
   profile: ProfileItemPropsType | null
@@ -11,11 +12,11 @@ type ProfileInfoPropsType = {
   saveFile: (file: File) => void
 }
 export const ProfileInfo = (props: ProfileInfoPropsType) => {
+  const [editMode, setEditMode] = useState(false)
 
   if (!props.profile) {
     return <Preloader/>
   }
-
   const onAvatarChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.currentTarget.files?.length) {
       props.saveFile(e.currentTarget.files[0])
@@ -32,10 +33,9 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
             {props.isOwner && <input type={'file'} onChange={onAvatarChange}/>}
           </div>
         </div>
-        <Contacts contacts={props.profile.contacts}/>
+        {editMode ? <EditContacts setEditMode={setEditMode} contacts={props.profile.contacts}/> : <Contacts contacts={props.profile.contacts} isOwner={props.isOwner} setEditMode={setEditMode}/>}
       </div>
     </div>
   );
-
-
 };
+
