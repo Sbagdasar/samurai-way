@@ -1,12 +1,12 @@
 import React from 'react';
 import {InjectedFormProps, reduxForm} from "redux-form";
 import {Input} from "../Common/forms/formsControls/input/Input";
-import {required} from "../../utils/validators/validators";
-import {loginTC} from "../../redux/reducers/auth-reducer";
+import {required} from "utils/validators/validators";
+import {loginTC} from "redux/reducers/auth-reducer";
 import {connect} from "react-redux";
-import {loginDataType} from "../../api/api";
+import {loginDataType} from "api/api";
 import {Redirect} from "react-router-dom";
-import {RootTypeReduxState} from "../../redux/redux-store";
+import {RootTypeReduxState} from "redux/redux-store";
 import s from "./Login.module.css"
 import {createField} from "../Common/forms/formsControls/createField/createField";
 
