@@ -26,11 +26,11 @@ export const store = createStore(rootReducer, composeEnhancers( applyMiddleware(
 export type RootTypeReduxState = ReturnType<typeof rootReducer>
 export type RootTypeStore = typeof store
 
-export type AppDispatch = ThunkDispatch<RootTypeReduxState, unknown, AppActionsType>
 
 
 export type AppActionsType = AuthActionsType | DialogsActionsType | ProfileActionsType | UsersActionsType | any
 export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType, RootTypeReduxState, unknown, AppActionsType>
+export type AppDispatch = ThunkDispatch<RootTypeReduxState, unknown, AppActionsType>
 
 // @ts-ignore
 window.store = store

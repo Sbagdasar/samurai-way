@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {profileAPI} from "api/api";
 import {AppThunkType} from "redux/redux-store";
+import {stopSubmit} from "redux-form";
 
 type AddPostActionType = {
   type: 'PROFILE/ADD-POST'
@@ -138,7 +139,14 @@ export const updateContactsTC = (contacts: any): AppThunkType=>async (dispatch, 
 
   if (res.resultCode === 0) {
     userID && dispatch(getProfileTC(userID + ""))
+  }else{
+
+    const errorMessage = res.messages[0].split('>')[1].toLowerCase().split(')')[0]
+    dispatch(stopSubmit('edit-contacts', {_error: errorMessage}))
+
   }
 }
 
 export default profileReducer;
+
+// todo: updateContactsTC add error array for outline all incorrect fields

@@ -13,11 +13,12 @@ import {createField} from "../Common/forms/formsControls/createField/createField
 type FormDataType = {
   email: string
   password: string
-  rememberMe: boolean
+  rememberMe?: boolean
+  captcha?: null | string
 }
 type LoginPropsType = MapDispatchToPropsType & MapStateToPropsType
 const Login = (props: LoginPropsType) => {
-  //let dispatch = useDispatch()
+
   const onSubmit = (formData: FormDataType) => {
     props.loginTC(formData)
   }
@@ -27,12 +28,12 @@ const Login = (props: LoginPropsType) => {
   return (
     <div>
       <h1>Login</h1>
-      <ReduxLoginForm onSubmit={onSubmit}/>
+      <ReduxLoginForm onSubmit={onSubmit} {...props}/>
     </div>
   );
 };
 
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+const LoginForm: React.FC<InjectedFormProps<FormDataType, { captcha: null | string }> & { captcha: null | string }> = (props) => {
 
   return (
     <form onSubmit={props.handleSubmit}>
@@ -41,6 +42,12 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
       {createField(null, "rememberMe", [], Input, {type: "checkbox"}, 'remember me')}
       {
         props.error && <div className={s.formCommonError}>{props.error}</div>
+      }
+      {
+        props.captcha && <img src={props.captcha}/>
+      }
+      {
+        props.captcha && createField(null, 'captcha', [required], Input, {type: 'text'})
       }
       <div>
         <button>
@@ -51,19 +58,19 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
   )
 }
 
-const ReduxLoginForm = reduxForm<FormDataType>({
-  form: 'login'
-})(LoginForm)
+const ReduxLoginForm = reduxForm<FormDataType, { captcha: null | string }>({form: 'login'})(LoginForm)
 
 export type MapDispatchToPropsType = {
   loginTC: (data: loginDataType) => void
 }
 type MapStateToPropsType = {
+  captcha: null | string
   isAuth: boolean
 }
 const mapStateToProps = (state: RootTypeReduxState): MapStateToPropsType => {
   return {
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
+    captcha: state.auth.captcha
   }
 }
 

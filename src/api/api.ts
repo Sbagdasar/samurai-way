@@ -34,27 +34,31 @@ export const profileAPI = {
     return instance.get(`profile/status/${userId}`).then(res => res.data)
   },
   updateStatus(status: string) {
-    return instance.put(`/profile/status`, {status}).then(response => response.data)
+    return instance.put(`profile/status`, {status}).then(response => response.data)
   },
   saveProfileFile(file:FormData){
     return instance.put<ResponseDataType<{photos:ProfilePhotos}>>(`/profile/photo`, file).then(response => response.data)
   },
   login(data: loginDataType) {
-    return instance.post('/auth/login', {...data}).then(res => res.data)
+    return instance.post('auth/login', {...data}).then(res => res.data)
   },
   logout() {
-    return instance.delete('/auth/login').then(res => res.data)
+    return instance.delete('auth/login').then(res => res.data)
   },
   updateContacts(profile:ProfileItemPropsType){
-    return instance.put('/profile', profile).then(res => res.data)
+    return instance.put('profile', profile).then(res => res.data)
   }
 }
-
+export const securityAPI = {
+  getCaptchaUrl(){
+    return instance.get('security/get-captcha-url').then(res=>res.data)
+  }
+}
 export type loginDataType = {
   email: string
   password: string
   rememberMe?: boolean
-  captcha?: boolean
+  captcha?: string|null
 }
 type ResponseDataType<D> ={
   resultCode: number
